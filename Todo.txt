@@ -1,0 +1,59 @@
+1/ What is the HTTP API for this?
+
+$BASE_URL/
+
+* Create a new game:
+POST /game
+  get back a game-id (xxxx)
+
+-v gives response code and more info on the req
+
+  curl -XPOST http://localhost:8080/game
+  GET is the default for curl
+  2053f2cd-c692-49b7-ab36-3f398c98f3ba
+  curl http://localhost:8080/game/6f8dea92-e37b-4083-8d9e-0a5b932c5444
+  curl -v http://localhost:8080/game/doesnt-exist
+
+
+* Get the current state of a game
+GET /game/{game-id}
+  -> text, eg:
+//        x |__|__
+//        __|__|__
+//          |   |
+O to play
+
+  -> json (can do this later, for web front-end)
+
+
+* Make a move
+POST /game/{game-id}/{piece}/{position}
+
+  -> text, eg:
+ x |___|_O_
+_O_|_X_|___
+   |   | X
+X has won
+game logic:
+if 123, 147, etc... then {position} won
+
+
+  -> errors. it's not your turn, that space isn't available, the game is finished (409).
+  -> that game doesn't exist (404)
+https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/409
+
+1 2 3
+4 5 6
+7 8 9
+
+
+
+
+
+
+
+
+
+
+
+2/ How do we represent board/moves/wins etc in code?
