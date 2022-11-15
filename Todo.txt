@@ -11,8 +11,8 @@ POST /game
   curl -XPOST http://localhost:8080/game
   GET is the default for curl
   2053f2cd-c692-49b7-ab36-3f398c98f3ba
-  curl http://localhost:8080/game/6f8dea92-e37b-4083-8d9e-0a5b932c5444
   curl -v http://localhost:8080/game/doesnt-exist
+  curl -XPOST http://localhost:8080/game/
 
 
 * Get the current state of a game
@@ -28,6 +28,7 @@ O to play
 
 * Make a move
 POST /game/{game-id}/{piece}/{position}
+display the current state of the game once you moved?
 
   -> text, eg:
  x |___|_O_
