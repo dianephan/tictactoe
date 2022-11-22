@@ -1,5 +1,6 @@
 package com.example.tictactoe.controller;
 
+import com.example.tictactoe.model.Cell;
 import com.example.tictactoe.model.Game;
 import com.example.tictactoe.service.GameService;
 import org.slf4j.Logger;
@@ -33,6 +34,7 @@ public class GameRestController {
 
     @GetMapping("/game/{game-id}")
     public ResponseEntity<String> getGame(@PathVariable("game-id") String gameId) {
+        // also display whose turn it is or none at all
         return ResponseEntity.of(myGameService
                 .getGame(gameId)
                 .map(Game::toString));
@@ -43,19 +45,36 @@ public class GameRestController {
                                             @PathVariable("piece") String piece,
                                             @PathVariable("position") Integer position) {
         Optional<Game> currentGame = myGameService.getGame(gameId);
+
+        if (!currentGame.isPresent()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No such game");
+        }
 //        if (currentGame.isPresent() && (!Objects.equals(piece, "X") || !piece.equals("O"))){
-        if ((!piece.equals("X")) && (!piece.equals("O")) && currentGame.isPresent()){
+        if (!isValidPiece(piece)) {
             LOG.info("current game exists but input is not X or O");
-            return ResponseEntity.status(HttpStatus.FORBIDDEN)
-                    .body("Must be X or O.");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Must be X or O");
         }
-        if (currentGame.isPresent() && (position < 1 || position > 9)){
+        if (isValidPosition(position)) {
             LOG.info("current game exists but position out of bound");
-            return ResponseEntity.status(HttpStatus.FORBIDDEN)
-                    .body("Spot is out of bounds");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Spot is out of bounds");
         }
-        return ResponseEntity.of(myGameService
-                .movePiece(gameId, piece, position)
-                .map(Game::toString));
+
+        Game theGame = currentGame.get();
+        boolean wasTheMoveAllowed = theGame.changeCell(Cell.valueOf(piece), position);
+        if (wasTheMoveAllowed) {
+            return ResponseEntity.ok(theGame.toString());
+        // need to check if your turn
+
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Spot is taken.");
+        }
+    }
+
+    private boolean isValidPosition(@PathVariable("position") Integer position) {
+        return position < 1 || position > 9;
+    }
+
+    private boolean isValidPiece(@PathVariable("piece") String piece) {
+        return piece.equals("X") || piece.equals("O");
     }
 }

@@ -1,3 +1,16 @@
+
+
+2022_11_17
+
+1/ Playing on a cell which is not EMPTY should return an error
+1.5/ Games should finish
+1.5.1/ We need to work out whether a move has won the game
+1.5.2/ We need to store somewhere what the state of a game is
+2/ Playing in a game which is finished should return an error
+3/ Playing X when it's O's turn should be an error too (and vice versa)
+
+================
+
 1/ What is the HTTP API for this?
 
 $BASE_URL/
@@ -12,7 +25,16 @@ POST /game
   GET is the default for curl
   2053f2cd-c692-49b7-ab36-3f398c98f3ba
   curl -v http://localhost:8080/game/doesnt-exist
-  curl -XPOST http://localhost:8080/game/
+GAME_ID=$(curl -XPOST http://localhost:8080/game) ; curl -XPOST http://localhost:8080/game/$GAME_ID/X/6
+
+curl -XPOST http://localhost:8080/game/$GAME_ID/O/3
+
+problems:
+- ends with draw, need to figure out where to put that
+- Spot is taken. message instead of "not your turn". however any attempt to
+overwrite that spot is now unavailable
+- overwrote a spot
+
 
 
 * Get the current state of a game
@@ -47,7 +69,7 @@ https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/409
 4 5 6
 7 8 9
 
-
+- can make a list in the future instead of cell1, cell2, etc
 
 
 
