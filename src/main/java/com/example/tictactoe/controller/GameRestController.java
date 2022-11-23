@@ -2,6 +2,7 @@ package com.example.tictactoe.controller;
 
 import com.example.tictactoe.model.Cell;
 import com.example.tictactoe.model.Game;
+import com.example.tictactoe.model.GameState;
 import com.example.tictactoe.service.GameService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,16 +59,30 @@ public class GameRestController {
             LOG.info("current game exists but position out of bound");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Spot is out of bounds");
         }
-
         Game theGame = currentGame.get();
         boolean wasTheMoveAllowed = theGame.changeCell(Cell.valueOf(piece), position);
         if (wasTheMoveAllowed) {
             return ResponseEntity.ok(theGame.toString());
-        // need to check if your turn
-
-        } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Spot is taken.");
         }
+        else {
+            GameState gameState = theGame.getCurrentState();
+            if (isGameOver(gameState)){
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(gameState.toString());
+            }
+            if (isGameInSession(gameState)) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(gameState.toString());
+            }
+            // this does not get run
+            else { return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Spot is taken."); }
+        }
+    }
+
+    private boolean isGameInSession(GameState gameState) {
+        return gameState.equals(GameState.X_TURN) || gameState.equals(GameState.O_TURN);
+    }
+
+    private boolean isGameOver(GameState gameState) {
+        return gameState.equals(GameState.DRAW) || gameState.equals(GameState.O_VICTORY) || gameState.equals(GameState.X_VICTORY);
     }
 
     private boolean isValidPosition(@PathVariable("position") Integer position) {
