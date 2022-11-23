@@ -42,9 +42,9 @@ public class Game {
     }
 
     public boolean changeCell(Cell piece, Integer position) {
-        // if the space isn't EMPTY return false
         if (!cells[position - 1].equals(Cell.EMPTY)) {
-//            currentState = GameState.SPOT_TAKEN;
+            // ideally should return this message in Controller
+            LOG.info("Spot is taken.");
             return false;
         }
         if (currentState.equals(GameState.DRAW)
