@@ -15,6 +15,8 @@ public class Game {
 
     private GameState currentState;
 
+    private Integer capacity = 0;
+
     public Game(String id) {
         this.id = id;
         Arrays.fill(cells, Cell.EMPTY);
@@ -25,101 +27,67 @@ public class Game {
         return id;
     }
 
-    public String toString(){
+    public String toString() {
         return
                 currentState.toString() + "\n" +
-                cells[0] + " | " + cells[1] + " | " + cells[2] + "\n" +
+                        cells[0] + " | " + cells[1] + " | " + cells[2] + "\n" +
                         "----------\n" +
-                cells[3] + " | " + cells[4] + " | " + cells[5] + "\n" +
+                        cells[3] + " | " + cells[4] + " | " + cells[5] + "\n" +
                         "----------\n" +
-                cells[6] + " | " + cells[7] + " | " + cells[8] + "\n";
+                        cells[6] + " | " + cells[7] + " | " + cells[8] + "\n";
     }
 
-    // this method returns false if the move was disallowed,
-    // true if the move was placed and the board updated
+    public GameState getCurrentState() {
+        return currentState;
+    }
+
     public boolean changeCell(Cell piece, Integer position) {
         // if the space isn't EMPTY return false
-        if (!cells[position].equals(Cell.EMPTY)){
+        if (!cells[position - 1].equals(Cell.EMPTY)) {
+//            currentState = GameState.SPOT_TAKEN;
             return false;
         }
-        // if the game is finished, do nothing (and return false)
-        // DRAW, X_VIC, O_VIC
         if (currentState.equals(GameState.DRAW)
             || currentState.equals(GameState.O_VICTORY)
             || currentState.equals(GameState.X_VICTORY)) {
-          return false;
-        }
-        // if the piece is X but it's O_TURN (and vice versa)
-        // that's an error - return false
-        if (pieceXturnO(piece)) {
             return false;
         }
-        if (pieceOturnX(piece)){
+        if (pieceXturnO(piece) || pieceOturnX(piece)) {
             return false;
-        }
-        else {
-            // make the move and change the state of the game
-
-            // the move should be made later after checking whose turn
-            // got out of bound errors
+        } else {
+            // you know that the piece is correct so time to
             cells[position - 1] = piece;
-            // change turns
-            if (piece.equals(Cell.X)) {
-                currentState = GameState.O_TURN;
-            }
-            if (piece.equals(Cell.O)) {
-                currentState = GameState.X_TURN;
-            }
-            if (position.equals(1)) {
-                if ((cells[5].equals(piece) && cells[9].equals(piece))
-                || (cells[4].equals(piece) && cells[7].equals(piece))
-                || (cells[2].equals(piece) && cells[3].equals(piece))
-                ) {
-                    if (piece.equals(Cell.X)) {
-                        currentState = GameState.X_VICTORY;
-                    } else {
-                        currentState = GameState.O_VICTORY;
-                    }
+            capacity += 1;
+            currentState = currentState.switchTurns();
+            // if those surrounding the piece are same, then Victory
+            if ((cells[0].equals(piece) && cells[1].equals(piece) && cells[2].equals(piece))
+                    || (cells[3].equals(piece) && cells[4].equals(piece) && cells[5].equals(piece))
+                    || (cells[6].equals(piece) && cells[7].equals(piece) && cells[8].equals(piece))
+                    || (cells[0].equals(piece) && cells[3].equals(piece) && cells[6].equals(piece))
+                    || (cells[1].equals(piece) && cells[4].equals(piece) && cells[7].equals(piece))
+                    || (cells[2].equals(piece) && cells[5].equals(piece) && cells[8].equals(piece))
+                    || (cells[0].equals(piece) && cells[4].equals(piece) && cells[8].equals(piece))
+                    || (cells[2].equals(piece) && cells[4].equals(piece) && cells[6].equals(piece))
+            ) {
+                if (piece.equals(Cell.X)) {
+                    currentState = GameState.X_VICTORY;
+                } else {
+                    currentState = GameState.O_VICTORY;
+                }
+                if (capacity.equals(9)) {
+                    // this is not hit yet
+                    currentState = GameState.DRAW;
                 }
             }
-            if (position.equals(2)) {
-                if ((cells[5].equals(piece) && cells[8].equals(piece))
-                    || (cells[1].equals(piece) && cells[3].equals(piece))
-                ) {
-                    if (piece.equals(Cell.X)) {
-                        currentState = GameState.X_VICTORY;
-                    } else {
-                        currentState = GameState.O_VICTORY;
-                    }
-                }
-            }
-            if (position.equals(3)) {
-                if ((cells[1].equals(piece) && cells[2].equals(piece))
-                    || (cells[5].equals(piece) && cells[7].equals(piece))
-                    || (cells[6].equals(piece) && cells[9].equals(piece))
-                ) {
-                    if (piece.equals(Cell.X)) {
-                        currentState = GameState.X_VICTORY;
-                    } else {
-                        currentState = GameState.O_VICTORY;
-                    }
-                }
-            }
-//            if (cells.) {
-//                currentState = GameState.DRAW;
-//            }
         }
-        // AND change currentState
-        // if X was passed in, then change currentState to one of:
-        //   X_VICTORY - this would be if there's 3 X's in a row somewhere
-        //   DRAW      - this would be if the board is full
-        //   O_TURN    - otherwise this
         return true;
     }
+
     private boolean pieceXturnO(Cell piece) {
         return piece.equals(Cell.X) && currentState.equals(GameState.O_TURN);
     }
     private boolean pieceOturnX(Cell piece) {
         return piece.equals(Cell.O) && currentState.equals(GameState.X_TURN);
     }
+
 }
