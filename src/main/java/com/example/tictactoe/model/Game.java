@@ -15,7 +15,7 @@ public class Game {
 
     private GameState currentState;
 
-    private Integer capacity = 0;
+    private int capacity = 0;
 
     public Game(String id) {
         this.id = id;
@@ -71,16 +71,22 @@ public class Game {
             ) {
                 if (piece.equals(Cell.X)) {
                     currentState = GameState.X_VICTORY;
-                } else {
+                }
+                if (piece.equals(Cell.O)) {
                     currentState = GameState.O_VICTORY;
                 }
-                if (capacity.equals(9)) {
-                    // this is not hit yet
+                if (capacity == 9 && isNoVictory()) {
+//                    // this is not hit yet
+                    LOG.info(String.valueOf(capacity));
                     currentState = GameState.DRAW;
                 }
             }
         }
         return true;
+    }
+
+    private boolean isNoVictory() {
+        return !(currentState.equals(GameState.O_VICTORY) || currentState.equals(GameState.X_VICTORY));
     }
 
     private boolean pieceXturnO(Cell piece) {
