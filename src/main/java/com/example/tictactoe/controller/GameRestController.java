@@ -41,16 +41,20 @@ public class GameRestController {
                 .map(Game::toString));
     }
 
-    @PostMapping("/game/{game-id}/{piece}/{position}")
+    @PostMapping("/game/{game-id}/{piece}/{position}/{answer}")
     public ResponseEntity<String> movePiece(@PathVariable("game-id") String gameId,
                                             @PathVariable("piece") String piece,
-                                            @PathVariable("position") Integer position) {
+                                            @PathVariable("position") Integer position,
+                                            @PathVariable("answer") Integer answer) {
         Optional<Game> currentGame = myGameService.getGame(gameId);
 
         if (!currentGame.isPresent()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No such game");
         }
-//        if (currentGame.isPresent() && (!Objects.equals(piece, "X") || !piece.equals("O"))){
+        if (!isValidAnswer(answer)){
+            LOG.info("not a valid answer input");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Must be either 1 2 3 or 4");
+        }
         if (!isValidPiece(piece)) {
             LOG.info("current game exists but input is not X or O");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Must be X or O");
@@ -60,8 +64,9 @@ public class GameRestController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Spot is out of bounds");
         }
         Game theGame = currentGame.get();
-        boolean wasTheMoveAllowed = theGame.changeCell(Cell.valueOf(piece), position);
+        boolean wasTheMoveAllowed = theGame.changeCell(Cell.valueOf(piece), position, answer);
         if (wasTheMoveAllowed) {
+
             return ResponseEntity.ok(theGame.toString());
         }
         else {
@@ -75,6 +80,10 @@ public class GameRestController {
             // this does not get run
             else { return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Spot is taken."); }
         }
+    }
+
+    private boolean isValidAnswer(Integer answer) {
+        return answer >= 1 && answer <= 4;
     }
 
     private boolean isGameInSession(GameState gameState) {
