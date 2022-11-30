@@ -5,8 +5,6 @@ package com.example.tictactoe.service;
 
 
 import com.example.tictactoe.model.Game;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
