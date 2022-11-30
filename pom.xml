@@ -14,7 +14,7 @@
     <name>tictactoe</name>
     <description>tictactoe</description>
     <properties>
-<!--        <java.version>1.8</java.version>-->
+<!--        <java.version>1.8</java.version>    -->
         <java.version>11</java.version>
 
     </properties>
@@ -29,15 +29,35 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <!-- adding in for the game -->
+        <dependency>
+            <groupId>com.github.alexdlaird</groupId>
+            <artifactId>java8-ngrok</artifactId>
+            <version>1.4.5</version>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
         <plugins>
             <plugin>
+<!--    not sure how to get rid of the error besides versionining like this which isnt good practice -->
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${parent.version}</version>
             </plugin>
         </plugins>
     </build>
-
 </project>
