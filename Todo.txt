@@ -1,3 +1,18 @@
+2022_11_27
+1. when player clicks on the box, question appears
+   position correlates to question
+   ("/game/{game-id}/{piece}/{position}")
+1.5. another post request
+   ("/game/{game-id}/{piece}/{position}/{option}")
+   if question is correct, run
+   `theGame.changeCell(Cell.valueOf(piece), position)`
+1.5.1. else move was not allowed, return false
+
+modify `changeCell` method
+if answer is correct, return true
+else false
+
+store all the questions in db model
 
 
 2022_11_17
@@ -25,9 +40,9 @@ POST /game
   GET is the default for curl
   2053f2cd-c692-49b7-ab36-3f398c98f3ba
   curl -v http://localhost:8080/game/doesnt-exist
-GAME_ID=$(curl -XPOST http://localhost:8080/game) ; curl -XPOST http://localhost:8080/game/$GAME_ID/X/6
+GAME_ID=$(curl -XPOST http://localhost:8080/game) ; curl -XPOST http://localhost:8080/game/$GAME_ID/X/6/3
 
-curl -XPOST http://localhost:8080/game/$GAME_ID/O/3
+curl -XPOST http://localhost:8080/game/$GAME_ID/O/3/2
 
 problems:
 - ends with draw, need to figure out where to put that
