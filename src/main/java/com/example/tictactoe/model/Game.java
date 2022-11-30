@@ -57,8 +57,8 @@ public class Game {
             return false;
         }
         if (currentState.equals(GameState.DRAW)
-                || currentState.equals(GameState.O_VICTORY)
-                || currentState.equals(GameState.X_VICTORY)) {
+            || currentState.equals(GameState.O_VICTORY)
+            || currentState.equals(GameState.X_VICTORY)) {
             return false;
         }
         if (pieceXturnO(piece) || pieceOturnX(piece)) {
