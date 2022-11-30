@@ -3,6 +3,8 @@ package com.example.tictactoe.controller;
 import com.example.tictactoe.model.Cell;
 import com.example.tictactoe.model.Game;
 import com.example.tictactoe.model.GameState;
+import com.example.tictactoe.model.Question;
+import com.example.tictactoe.repository.QuestionRepository;
 import com.example.tictactoe.service.GameService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -21,10 +24,12 @@ public class GameRestController {
     private static final Logger LOG = LoggerFactory.getLogger(GameRestController.class);
 
     private final GameService myGameService;
+    private final QuestionRepository questionRepository;
 
     @Autowired
-    public GameRestController(GameService gameService) {
+    public GameRestController(GameService gameService, QuestionRepository questionRepository) {
         myGameService = gameService;
+        this.questionRepository = questionRepository;
     }
 
     @PostMapping("/game")
@@ -39,6 +44,14 @@ public class GameRestController {
         return ResponseEntity.of(myGameService
                 .getGame(gameId)
                 .map(Game::toString));
+    }
+
+    @GetMapping("/game/{game-id}/{piece}/{position}")
+    public ResponseEntity<String> displayQuestion(@PathVariable("game-id") String gameId,
+                                            @PathVariable("piece") String piece,
+                                            @PathVariable("position") Integer position) {
+        // for MVP dont worry about gameID and piece
+        return ResponseEntity.of(questionRepository.findById(Long.valueOf(position)).map(Question::getQuestion));
     }
 
     @PostMapping("/game/{game-id}/{piece}/{position}/{answer}")
@@ -66,7 +79,6 @@ public class GameRestController {
         Game theGame = currentGame.get();
         boolean wasTheMoveAllowed = theGame.changeCell(Cell.valueOf(piece), position, answer);
         if (wasTheMoveAllowed) {
-
             return ResponseEntity.ok(theGame.toString());
         }
         else {
