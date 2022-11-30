@@ -3,8 +3,9 @@ package com.example.tictactoe.service;
 // GameService: keeps hold of all the games in progress, can create a new one, can fetch one by ID
 // deals with games. stringify in controller
 
-
 import com.example.tictactoe.model.Game;
+import com.example.tictactoe.repository.QuestionRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -15,7 +16,8 @@ import java.util.UUID;
 @Service
 public class GameService {
 //    private static final Logger LOG = LoggerFactory.getLogger(GameService.class);
-
+    @Autowired
+    QuestionRepository questionRepository;
     private final Map<String, Game> games = new HashMap<>();
 
     public Game createNewGame() {
