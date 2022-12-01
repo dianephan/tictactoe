@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -28,61 +29,56 @@ public class GameRestController {
     }
 
     @PostMapping("/game")
-    public String createNewGame() {
+    public Map<String, String> createNewGame() {
         Game game = myGameService.createNewGame();
-        return game.getId();
+        return Map.of("gameId", game.getId());
     }
 
     @GetMapping("/game/{game-id}")
-    public ResponseEntity<String> getGame(@PathVariable("game-id") String gameId) {
+    public ResponseEntity<Map<String, Object>> getGame(@PathVariable("game-id") String gameId) {
         // also display whose turn it is or none at all
         return ResponseEntity.of(myGameService
                 .getGame(gameId)
-                .map(Game::toString));
+                .map(g -> Map.of("game", g)));
     }
 
     @PostMapping("/game/{game-id}/{piece}/{position}")
-    public ResponseEntity<String> movePiece(@PathVariable("game-id") String gameId,
-                                            @PathVariable("piece") String piece,
-                                            @PathVariable("position") Integer position) {
+    public ResponseEntity<Map<String, Object>> movePiece(@PathVariable("game-id") String gameId,
+                                                         @PathVariable("piece") String piece,
+                                                         @PathVariable("position") Integer position) {
         Optional<Game> currentGame = myGameService.getGame(gameId);
 
-        if (!currentGame.isPresent()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No such game");
+        // TODO: Need to find way to pass error messages out
+
+        // Validate inputs
+        if (currentGame.isEmpty()) {
+            LOG.info("Request for non-existent game");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
-//        if (currentGame.isPresent() && (!Objects.equals(piece, "X") || !piece.equals("O"))){
+
         if (!isValidPiece(piece)) {
             LOG.info("current game exists but input is not X or O");
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Must be X or O");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
         if (isValidPosition(position)) {
             LOG.info("current game exists but position out of bound");
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Spot is out of bounds");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
+
         Game theGame = currentGame.get();
+
+        if (theGame.isOver()) {
+            LOG.info("move made on finished game (VICTORY // DRAW)");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+
         boolean wasTheMoveAllowed = theGame.changeCell(Cell.valueOf(piece), position);
         if (wasTheMoveAllowed) {
-            return ResponseEntity.ok(theGame.toString());
+            // the move was allowed, return and we're done
+            return ResponseEntity.ok(Map.of("game", theGame));
         }
-        else {
-            GameState gameState = theGame.getCurrentState();
-            if (isGameOver(gameState)){
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(gameState.toString());
-            }
-            if (isGameInSession(gameState)) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(gameState.toString());
-            }
-            // this does not get run
-            else { return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Spot is taken."); }
-        }
-    }
-
-    private boolean isGameInSession(GameState gameState) {
-        return gameState.equals(GameState.X_TURN) || gameState.equals(GameState.O_TURN);
-    }
-
-    private boolean isGameOver(GameState gameState) {
-        return gameState.equals(GameState.DRAW) || gameState.equals(GameState.O_VICTORY) || gameState.equals(GameState.X_VICTORY);
+        // either spot is taken or same piece tried to go again
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
     }
 
     private boolean isValidPosition(@PathVariable("position") Integer position) {

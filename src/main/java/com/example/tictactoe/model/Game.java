@@ -41,6 +41,10 @@ public class Game {
         return currentState;
     }
 
+    public Cell[] getCells() {
+        return cells;
+    }
+
     public boolean changeCell(Cell piece, Integer position) {
         if (!cells[position - 1].equals(Cell.EMPTY)) {
             // ideally should return this message in Controller
@@ -96,4 +100,11 @@ public class Game {
         return piece.equals(Cell.O) && currentState.equals(GameState.X_TURN);
     }
 
+    public boolean isOver() {
+        return currentState.equals(GameState.DRAW) || currentState.equals(GameState.O_VICTORY) || currentState.equals(GameState.X_VICTORY);
+    }
+
+    public boolean isInSession() {
+        return currentState.equals(GameState.X_TURN) || currentState.equals(GameState.O_TURN);
+    }
 }
