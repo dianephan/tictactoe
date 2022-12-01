@@ -3,7 +3,7 @@ package com.example.tictactoe.model;
 // Game: represents a single game, including id, board state, who's move is it next, etc?
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import static com.example.tictactoe.model.GameState.*;
 import java.util.Arrays;
 
 public class Game {
@@ -15,12 +15,12 @@ public class Game {
 
     private GameState currentState;
 
-    private int capacity = 0;
+    private int countOfPiecesPlaced = 0;
 
     public Game(String id) {
         this.id = id;
         Arrays.fill(cells, Cell.EMPTY);
-        currentState = GameState.X_TURN;
+        currentState = X_TURN;
     }
 
     public String getId() {
@@ -51,9 +51,9 @@ public class Game {
             LOG.info("Spot is taken.");
             return false;
         }
-        if (currentState.equals(GameState.DRAW)
-            || currentState.equals(GameState.O_VICTORY)
-            || currentState.equals(GameState.X_VICTORY)) {
+        if (currentState.equals(DRAW)
+            || currentState.equals(O_VICTORY)
+            || currentState.equals(X_VICTORY)) {
             return false;
         }
         if (pieceXturnO(piece) || pieceOturnX(piece)) {
@@ -61,7 +61,7 @@ public class Game {
         } else {
             // you know that the piece is correct so time to
             cells[position - 1] = piece;
-            capacity += 1;
+            countOfPiecesPlaced += 1;
             currentState = currentState.switchTurns();
             // if those surrounding the piece are same, then Victory
             if ((cells[0].equals(piece) && cells[1].equals(piece) && cells[2].equals(piece))
@@ -74,15 +74,15 @@ public class Game {
                     || (cells[2].equals(piece) && cells[4].equals(piece) && cells[6].equals(piece))
             ) {
                 if (piece.equals(Cell.X)) {
-                    currentState = GameState.X_VICTORY;
+                    currentState = X_VICTORY;
                 }
                 if (piece.equals(Cell.O)) {
-                    currentState = GameState.O_VICTORY;
+                    currentState = O_VICTORY;
                 }
-                if (capacity == 9 && isNoVictory()) {
+                if (countOfPiecesPlaced == 9 && isNoVictory()) {
 //                    // this is not hit yet
-                    LOG.info(String.valueOf(capacity));
-                    currentState = GameState.DRAW;
+                    LOG.info(String.valueOf(countOfPiecesPlaced));
+                    currentState = DRAW;
                 }
             }
         }
@@ -90,21 +90,21 @@ public class Game {
     }
 
     private boolean isNoVictory() {
-        return !(currentState.equals(GameState.O_VICTORY) || currentState.equals(GameState.X_VICTORY));
+        return !(currentState.equals(O_VICTORY) || currentState.equals(X_VICTORY));
     }
 
     private boolean pieceXturnO(Cell piece) {
-        return piece.equals(Cell.X) && currentState.equals(GameState.O_TURN);
+        return piece.equals(Cell.X) && currentState.equals(O_TURN);
     }
     private boolean pieceOturnX(Cell piece) {
-        return piece.equals(Cell.O) && currentState.equals(GameState.X_TURN);
+        return piece.equals(Cell.O) && currentState.equals(X_TURN);
     }
 
     public boolean isOver() {
-        return currentState.equals(GameState.DRAW) || currentState.equals(GameState.O_VICTORY) || currentState.equals(GameState.X_VICTORY);
+        return currentState.equals(DRAW) || currentState.equals(O_VICTORY) || currentState.equals(X_VICTORY);
     }
 
     public boolean isInSession() {
-        return currentState.equals(GameState.X_TURN) || currentState.equals(GameState.O_TURN);
+        return currentState.equals(X_TURN) || currentState.equals(O_TURN);
     }
 }
