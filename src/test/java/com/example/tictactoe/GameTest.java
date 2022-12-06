@@ -6,6 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 
+import java.util.Collections;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -85,6 +86,7 @@ public class GameTest {
         assertThat(result.currentState).isEqualTo("X_VICTORY");
     }
 
+    @Test
     public void pieceOWins() {
         String gameId = createNewGame();
         makeNewMove(gameId, "X", 6);
@@ -97,6 +99,8 @@ public class GameTest {
         assertThat(result.currentState).isEqualTo("O_VICTORY");
     }
 
+    // expected DRAW actual O_TURN
+    @Test
     public void gameDraw() {
         String gameId = createNewGame();
         makeNewMove(gameId, "X", 1);
@@ -109,12 +113,8 @@ public class GameTest {
         makeNewMove(gameId, "O", 9);
         Game result = makeNewMove(gameId, "X", 8);
         assertThat(result.currentState).isEqualTo("DRAW");
+        assertThat(result.cells).doesNotContainAnyElementsOf(Collections.singleton("EMPTY"));
     }
-
-    // Success Scenarios:
-    // 1. make 9 valid moves in a row & get a draw
-    // 2. game is won in 5 moves by X
-    // 3. game is won in 6 moves by O
 
     // Failure Scenarios:
     // 1. make a move over another piece -> error 400 w/ message

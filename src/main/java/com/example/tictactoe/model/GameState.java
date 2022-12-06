@@ -5,8 +5,7 @@ public enum GameState {
     O_TURN,
     DRAW,
     X_VICTORY,
-    O_VICTORY,
-    SPOT_TAKEN;
+    O_VICTORY;
 
     public GameState switchTurns() {
         switch(this) {

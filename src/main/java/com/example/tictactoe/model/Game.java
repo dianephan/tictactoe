@@ -4,6 +4,7 @@ package com.example.tictactoe.model;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import static com.example.tictactoe.model.GameState.*;
+import static com.example.tictactoe.model.Cell.*;
 import java.util.Arrays;
 
 public class Game {
@@ -19,7 +20,7 @@ public class Game {
 
     public Game(String id) {
         this.id = id;
-        Arrays.fill(cells, Cell.EMPTY);
+        Arrays.fill(cells, EMPTY);
         currentState = X_TURN;
     }
 
@@ -46,7 +47,8 @@ public class Game {
     }
 
     public boolean changeCell(Cell piece, Integer position) {
-        if (!cells[position - 1].equals(Cell.EMPTY)) {
+        int ourPosition = position - 1;
+        if (!cells[ourPosition].equals(EMPTY)) {
             // ideally should return this message in Controller
             LOG.info("Spot is taken.");
             return false;
@@ -60,7 +62,7 @@ public class Game {
             return false;
         } else {
             // you know that the piece is correct so time to
-            cells[position - 1] = piece;
+            cells[ourPosition] = piece;
             countOfPiecesPlaced += 1;
             currentState = currentState.switchTurns();
             // if those surrounding the piece are same, then Victory
@@ -73,17 +75,16 @@ public class Game {
                     || (cells[0].equals(piece) && cells[4].equals(piece) && cells[8].equals(piece))
                     || (cells[2].equals(piece) && cells[4].equals(piece) && cells[6].equals(piece))
             ) {
-                if (piece.equals(Cell.X)) {
+                if (piece.equals(X)) {
                     currentState = X_VICTORY;
                 }
-                if (piece.equals(Cell.O)) {
+                if (piece.equals(O)) {
                     currentState = O_VICTORY;
                 }
-                if (countOfPiecesPlaced == 9 && isNoVictory()) {
-//                    // this is not hit yet
-                    LOG.info(String.valueOf(countOfPiecesPlaced));
-                    currentState = DRAW;
-                }
+            }
+            else if (isNoVictory() && countOfPiecesPlaced == 9) {
+                LOG.info(String.valueOf(countOfPiecesPlaced));
+                currentState = DRAW;
             }
         }
         return true;
@@ -94,10 +95,10 @@ public class Game {
     }
 
     private boolean pieceXturnO(Cell piece) {
-        return piece.equals(Cell.X) && currentState.equals(O_TURN);
+        return piece.equals(X) && currentState.equals(O_TURN);
     }
     private boolean pieceOturnX(Cell piece) {
-        return piece.equals(Cell.O) && currentState.equals(X_TURN);
+        return piece.equals(O) && currentState.equals(X_TURN);
     }
 
     public boolean isOver() {
