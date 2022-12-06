@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -29,17 +30,17 @@ public class GameRestController {
     }
 
     @PostMapping("/game")
-    public String createNewGame() {
+    public Map<String, String> createNewGame() {
         Game game = myGameService.createNewGame();
-        return game.getId();
+        return Map.of("gameId", game.getId());
     }
 
     @GetMapping("/game/{game-id}")
-    public ResponseEntity<String> getGame(@PathVariable("game-id") String gameId) {
+    public ResponseEntity<Map<String, Object>> getGame(@PathVariable("game-id") String gameId) {
         // also display whose turn it is or none at all
         return ResponseEntity.of(myGameService
                 .getGame(gameId)
-                .map(Game::toString));
+                .map(g -> Map.of("game", g)));
     }
 
     @GetMapping("/game/{game-id}/{piece}/{position}")
@@ -50,63 +51,65 @@ public class GameRestController {
         return ResponseEntity.of(questionRepository.findById(Long.valueOf(position)).map(Question::getQuestion));
     }
 
-    @PostMapping("/game/{game-id}/{piece}/{position}/{answer}")
-    public ResponseEntity<String> movePiece(@PathVariable("game-id") String gameId,
-                                            @PathVariable("piece") String piece,
-                                            @PathVariable("position") Integer position,
-                                            @PathVariable("answer") Integer answer) {
-        Optional<Game> currentGame = myGameService.getGame(gameId);
+//    @PostMapping("/game/{game-id}/{piece}/{position}/{answer}")
+//    public ResponseEntity<String> movePiece(@PathVariable("game-id") String gameId,
+//                                            @PathVariable("piece") String piece,
+//                                            @PathVariable("position") Integer position,
+//                                            @PathVariable("answer") Integer answer) {
+//    }
 
-        if (!currentGame.isPresent()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No such game");
-        }
-        if (!isValidAnswer(answer)){
-            LOG.info("not a valid answer input");
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Must be either 1 2 3 or 4");
+    @PostMapping("/game/{game-id}/{piece}/{position}")
+    public ResponseEntity<Map<String, Object>> movePiece(@PathVariable("game-id") String gameId,
+                                                         @PathVariable("piece") String piece,
+                                                         @PathVariable("position") Integer position) {
+
+        Optional<Game> currentGame = myGameService.getGame(gameId);
+        // TODO : just make answer a dud
+        Integer answer = 1;
+
+        // TODO: Need to find way to pass error messages out
+
+        // Validate inputs
+        if (currentGame.isEmpty()) {
+            LOG.info("Request for non-existent game");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
         if (!isValidPiece(piece)) {
             LOG.info("current game exists but input is not X or O");
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Must be X or O");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
         if (isValidPosition(position)) {
             LOG.info("current game exists but position out of bound");
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Spot is out of bounds");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
-        Game theGame = currentGame.get();
+        if (!isValidAnswer(answer)) {
+            LOG.info("not a valid answer input");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+
+            Game theGame = currentGame.get();
+
+        if (theGame.isOver()) {
+            LOG.info("move made on finished game (VICTORY // DRAW)");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+
         boolean wasTheMoveAllowed = theGame.changeCell(Cell.valueOf(piece), position, answer);
         if (wasTheMoveAllowed) {
-            return ResponseEntity.ok(theGame.toString());
+            // the move was allowed, return and we're done
+            return ResponseEntity.ok(Map.of("game", theGame));
         }
-        else {
-            GameState gameState = theGame.getCurrentState();
-            if (isGameOver(gameState)){
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(gameState.toString());
-            }
-            if (isGameInSession(gameState)) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(gameState.toString());
-            }
-            // this does not get run
-            else { return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Spot is taken."); }
-        }
-    }
-
-    private boolean isValidAnswer(Integer answer) {
-        return answer >= 1 && answer <= 4;
-    }
-
-    private boolean isGameInSession(GameState gameState) {
-        return gameState.equals(GameState.X_TURN) || gameState.equals(GameState.O_TURN);
-    }
-
-    private boolean isGameOver(GameState gameState) {
-        return gameState.equals(GameState.DRAW) || gameState.equals(GameState.O_VICTORY) || gameState.equals(GameState.X_VICTORY);
+        // either spot is taken or same piece tried to go again
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
     }
 
     private boolean isValidPosition(@PathVariable("position") Integer position) {
         return position < 1 || position > 9;
     }
-
     private boolean isValidPiece(@PathVariable("piece") String piece) {
         return piece.equals("X") || piece.equals("O");
+    }
+    private boolean isValidAnswer(Integer answer) {
+        return answer >= 1 && answer <= 4;
     }
 }

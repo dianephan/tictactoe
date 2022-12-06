@@ -41,8 +41,16 @@ POST /game
   2053f2cd-c692-49b7-ab36-3f398c98f3ba
   curl -v http://localhost:8080/game/doesnt-exist
 GAME_ID=$(curl -XPOST http://localhost:8080/game) ; curl -XPOST http://localhost:8080/game/$GAME_ID/X/6/3
-
 curl -XPOST http://localhost:8080/game/$GAME_ID/O/3/2
+
+
+GAME_ID=$(curl -XPOST http://localhost:8080/game) ; curl -XPOST http://localhost:8080/game/$GAME_ID/X/6
+curl -XPOST http://localhost:8080/game/$GAME_ID/O/3
+
+curl -v http://localhost:8080/game/b81feb4e-fbd5-4d5d-a896-ec04801946bb
+
+
+
 
 problems:
 - ends with draw, need to figure out where to put that

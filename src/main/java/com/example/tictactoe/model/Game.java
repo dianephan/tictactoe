@@ -3,7 +3,7 @@ package com.example.tictactoe.model;
 // Game: represents a single game, including id, board state, who's move is it next, etc?
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import static com.example.tictactoe.model.GameState.*;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,13 +14,12 @@ public class Game {
     private final String id;
     private final Cell[] cells = new Cell[9];
     private GameState currentState;
-    private int capacity = 0;
     private final Map<Integer, Integer> questions = new HashMap<>();
+    private int countOfPiecesPlaced = 0;
 
     public Game(String id) {
         this.id = id;
         Arrays.fill(cells, Cell.EMPTY);
-        currentState = GameState.X_TURN;
         questions.put(1, 3);
         questions.put(2, 1);
         questions.put(3, 3);
@@ -30,6 +29,7 @@ public class Game {
         questions.put(7, 3);
         questions.put(8, 4);
         questions.put(9, 2);
+        currentState = X_TURN;
     }
 
     public String getId() {
@@ -50,15 +50,21 @@ public class Game {
         return currentState;
     }
 
+    public Cell[] getCells() {
+        return cells;
+    }
+
     public boolean changeCell(Cell piece, Integer position, Integer answer) {
-        if (!cells[position - 1].equals(Cell.EMPTY)) {
+
+        int ourPosition = position - 1;
+        if (!cells[ourPosition].equals(Cell.EMPTY)) {
             // ideally should return this message in Controller
             LOG.info("Spot is taken.");
             return false;
         }
-        if (currentState.equals(GameState.DRAW)
-            || currentState.equals(GameState.O_VICTORY)
-            || currentState.equals(GameState.X_VICTORY)) {
+        if (currentState.equals(DRAW)
+            || currentState.equals(O_VICTORY)
+            || currentState.equals(X_VICTORY)) {
             return false;
         }
         if (pieceXturnO(piece) || pieceOturnX(piece)) {
@@ -68,13 +74,16 @@ public class Game {
             // you know that the piece is correct and available so time to ask the question
             if (answer.equals(questions.get(position))) {
                 LOG.info("Answer is correct!");
-                cells[position - 1] = piece;
-                capacity += 1;
+                cells[ourPosition] = piece;
                 currentState = currentState.switchTurns();
             } else {
                 LOG.info("INCORRECT!");
                 return false;
             }
+            // you know that the piece is correct so time to
+            cells[ourPosition] = piece;
+            countOfPiecesPlaced += 1;
+            currentState = currentState.switchTurns();
             // if those surrounding the piece are same, then Victory
             if ((cells[0].equals(piece) && cells[1].equals(piece) && cells[2].equals(piece))
                     || (cells[3].equals(piece) && cells[4].equals(piece) && cells[5].equals(piece))
@@ -86,15 +95,15 @@ public class Game {
                     || (cells[2].equals(piece) && cells[4].equals(piece) && cells[6].equals(piece))
             ) {
                 if (piece.equals(Cell.X)) {
-                    currentState = GameState.X_VICTORY;
+                    currentState = X_VICTORY;
                 }
                 if (piece.equals(Cell.O)) {
-                    currentState = GameState.O_VICTORY;
+                    currentState = O_VICTORY;
                 }
-                if (capacity == 9 && isNoVictory()) {
+                if (countOfPiecesPlaced == 9 && isNoVictory()) {
 //                    // this is not hit yet
-                    LOG.info(String.valueOf(capacity));
-                    currentState = GameState.DRAW;
+                    LOG.info(String.valueOf(countOfPiecesPlaced));
+                    currentState = DRAW;
                 }
             }
         }
@@ -102,14 +111,21 @@ public class Game {
     }
 
     private boolean isNoVictory() {
-        return !(currentState.equals(GameState.O_VICTORY) || currentState.equals(GameState.X_VICTORY));
+        return !(currentState.equals(O_VICTORY) || currentState.equals(X_VICTORY));
     }
 
     private boolean pieceXturnO(Cell piece) {
-        return piece.equals(Cell.X) && currentState.equals(GameState.O_TURN);
+        return piece.equals(Cell.X) && currentState.equals(O_TURN);
     }
     private boolean pieceOturnX(Cell piece) {
-        return piece.equals(Cell.O) && currentState.equals(GameState.X_TURN);
+        return piece.equals(Cell.O) && currentState.equals(X_TURN);
     }
 
+    public boolean isOver() {
+        return currentState.equals(DRAW) || currentState.equals(O_VICTORY) || currentState.equals(X_VICTORY);
+    }
+
+    public boolean isInSession() {
+        return currentState.equals(X_TURN) || currentState.equals(O_TURN);
+    }
 }
