@@ -8,6 +8,7 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -62,7 +63,6 @@ public class GameTest {
     public void getNewGame() {
         String gameId = createNewGame();
         Game newGame = getGameById(gameId);
-
         assertThat(newGame.currentState).isEqualTo("X_TURN");
     }
 
@@ -82,7 +82,6 @@ public class GameTest {
         makeNewMove(gameId, "X", 5);
         makeNewMove(gameId, "O", 2);
         Game result = makeNewMove(gameId, "X", 4);
-
         assertThat(result.currentState).isEqualTo("X_VICTORY");
     }
 
@@ -95,11 +94,9 @@ public class GameTest {
         makeNewMove(gameId, "O", 2);
         makeNewMove(gameId, "X", 9);
         Game result = makeNewMove(gameId, "O", 3);
-
         assertThat(result.currentState).isEqualTo("O_VICTORY");
     }
 
-    // expected DRAW actual O_TURN
     @Test
     public void gameDraw() {
         String gameId = createNewGame();
@@ -115,6 +112,48 @@ public class GameTest {
         assertThat(result.currentState).isEqualTo("DRAW");
         assertThat(result.cells).doesNotContainAnyElementsOf(Collections.singleton("EMPTY"));
     }
+
+    public void makeMoveOverAnotherPiece() {
+        String gameId = createNewGame();
+        makeNewMove(gameId, "X", 1);
+        Game result = makeNewMove(gameId, "O", 1);
+
+    }
+
+    public void invalidPiece() {
+        String gameId = createNewGame();
+        // pass in any alpha randomly
+        Random r = new Random();
+        String randomAlpha = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNPQRSTUVWYZ";
+        int randomNum = r.nextInt(randomAlpha.length() + 1);
+        String letter = randomAlpha.substring(randomNum, randomNum - 1);
+        Game result = makeNewMove(gameId, letter, 1);
+
+    }
+
+    // 2.5 same as above
+
+    public void wrongTurn () {
+        String gameId = createNewGame();
+        Game result = makeNewMove(gameId, "O", 1);
+    }
+
+    public void invalidMoveGameOver() {
+        String gameId = createNewGame();
+        makeNewMove(gameId, "X", 6);
+        makeNewMove(gameId, "O", 1);
+        makeNewMove(gameId, "X", 5);
+        makeNewMove(gameId, "O", 2);
+        Game result = makeNewMove(gameId, "X", 4);
+        // expected 404
+    }
+
+    public void gameIdDoesNotExist() {
+        String gameId = "";
+        Game result = makeNewMove(gameId, "X", 6);
+        // expected 404
+    }
+
 
     // Failure Scenarios:
     // 1. make a move over another piece -> error 400 w/ message
