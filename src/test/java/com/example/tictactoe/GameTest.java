@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.http.ResponseEntity;
 
 import java.util.Collections;
 import java.util.List;
@@ -43,6 +44,11 @@ public class GameTest {
         // currentState":"X_TURN"}}
     }
 
+    private static class ErrorBody{
+        public String message;
+        public int status;
+    }
+
     private String createNewGame(){
         return client.postForObject("http://localhost:" + port + "/game", "",
                 NewGameResponse.class).gameId;
@@ -57,6 +63,12 @@ public class GameTest {
          return client.postForObject("http://localhost:" + port +
                  "/game/" + gameId +"/"+ piece +"/"+ position, "",
                  GameResponseWrapper.class).game;
+    }
+
+    private ErrorBody makeNewMoveErrors(String gameId, String piece, Integer position){
+        return client.postForObject("http://localhost:" + port +
+                "/game/" + gameId +"/"+ piece +"/"+ position,
+                "", ErrorBody.class);
     }
 
     @Test
@@ -111,58 +123,67 @@ public class GameTest {
         Game result = makeNewMove(gameId, "X", 8);
         assertThat(result.currentState).isEqualTo("DRAW");
         assertThat(result.cells).doesNotContainAnyElementsOf(Collections.singleton("EMPTY"));
+        assertThat(result.cells).doesNotContain("EMPTY");
     }
 
+    @Test
+    public void gameIdDoesNotExist() {
+        String gameId = "this-game-does-not-exist";
+        ErrorBody result = makeNewMoveErrors(gameId, "X", 6);
+        assertThat(result.status).isEqualTo(404);
+        assertThat(result.message).contains("Game is not found.");
+    }
+
+    @Test
     public void makeMoveOverAnotherPiece() {
         String gameId = createNewGame();
         makeNewMove(gameId, "X", 1);
-        Game result = makeNewMove(gameId, "O", 1);
-
+        ErrorBody result = makeNewMoveErrors(gameId, "O", 1);
+        assertThat(result.status).isEqualTo(400);
+        assertThat(result.message).contains("Spot was taken or it's not your turn.");
     }
 
+    @Test
     public void invalidPiece() {
         String gameId = createNewGame();
-        // pass in any alpha randomly
         Random r = new Random();
         String randomAlpha = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNPQRSTUVWYZ";
-        int randomNum = r.nextInt(randomAlpha.length() + 1);
-        String letter = randomAlpha.substring(randomNum, randomNum - 1);
-        Game result = makeNewMove(gameId, letter, 1);
-
+        for (char letter : randomAlpha.toCharArray()) {
+            ErrorBody result = makeNewMoveErrors(gameId, letter+"", 1);
+            assertThat(result.status).isEqualTo(400);
+            assertThat(result.message).contains("Input must be X or O.");
+        }
     }
 
-    // 2.5 same as above
+    @Test
+    public void positionOutOfBounds () {
+        String gameId = createNewGame();
+        ErrorBody result = makeNewMoveErrors(gameId, "X", 10);
+        assertThat(result.status).isEqualTo(400);
+        assertThat(result.message).contains("Position is out of bounds.");
+        result = makeNewMoveErrors(gameId, "X", -1);
+        assertThat(result.status).isEqualTo(400);
+        assertThat(result.message).contains("Position is out of bounds.");
+    }
 
+    @Test
     public void wrongTurn () {
         String gameId = createNewGame();
-        Game result = makeNewMove(gameId, "O", 1);
+        ErrorBody result = makeNewMoveErrors(gameId, "O", 1);
+        assertThat(result.status).isEqualTo(400);
+        assertThat(result.message).contains("Spot was taken or it's not your turn.");
     }
 
+    @Test
     public void invalidMoveGameOver() {
         String gameId = createNewGame();
         makeNewMove(gameId, "X", 6);
         makeNewMove(gameId, "O", 1);
         makeNewMove(gameId, "X", 5);
         makeNewMove(gameId, "O", 2);
-        Game result = makeNewMove(gameId, "X", 4);
-        // expected 404
+        makeNewMove(gameId, "X", 4);
+        ErrorBody result = makeNewMoveErrors(gameId, "O", 3);
+        assertThat(result.status).isEqualTo(400);
+        assertThat(result.message).contains("Game is already over.");
     }
-
-    public void gameIdDoesNotExist() {
-        String gameId = "";
-        Game result = makeNewMove(gameId, "X", 6);
-        // expected 404
-    }
-
-
-    // Failure Scenarios:
-    // 1. make a move over another piece -> error 400 w/ message
-    //    assertEquals(200, responseEntity.getStatusCodeValue());
-    // 2. Invalid piece (I, Y, A) some other letter
-    // 2.5 Invalid move position needs to be 1-9 (invalid eg 10) (LATER ON: deal with "fkdsfjs")
-    // 3. Invalid move (ie wrong turn)
-    // 4. Invalid move (game is already finished)
-    // 5. Invalid bc gameId does not exist
-
-
 }

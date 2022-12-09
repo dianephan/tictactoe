@@ -2,7 +2,6 @@ package com.example.tictactoe.controller;
 
 import com.example.tictactoe.model.Cell;
 import com.example.tictactoe.model.Game;
-import com.example.tictactoe.model.GameState;
 import com.example.tictactoe.service.GameService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Map;
 import java.util.Optional;
@@ -46,30 +46,29 @@ public class GameRestController {
     public ResponseEntity<Map<String, Object>> movePiece(@PathVariable("game-id") String gameId,
                                                          @PathVariable("piece") String piece,
                                                          @PathVariable("position") Integer position) {
-        Optional<Game> currentGame = myGameService.getGame(gameId);
 
-        // TODO: Need to find way to pass error messages out
+        Optional<Game> currentGame = myGameService.getGame(gameId);
 
         // Validate inputs
         if (currentGame.isEmpty()) {
             LOG.info("Request for non-existent game");
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Game is not found.");
         }
 
         if (!isValidPiece(piece)) {
             LOG.info("current game exists but input is not X or O");
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Input must be X or O.");
         }
         if (isValidPosition(position)) {
             LOG.info("current game exists but position out of bound");
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Position is out of bounds.");
         }
 
         Game theGame = currentGame.get();
 
         if (theGame.isOver()) {
             LOG.info("move made on finished game (VICTORY // DRAW)");
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Game is already over.");
         }
 
         boolean wasTheMoveAllowed = theGame.changeCell(Cell.valueOf(piece), position);
@@ -78,7 +77,7 @@ public class GameRestController {
             return ResponseEntity.ok(Map.of("game", theGame));
         }
         // either spot is taken or same piece tried to go again
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Spot was taken or it's not your turn.");
     }
 
     private boolean isValidPosition(@PathVariable("position") Integer position) {
