@@ -1,0 +1,30 @@
+// TODO
+// useState to store gameID (whenever this is created)
+// need something on page to show user to click here
+// when get response back, use that response to render page with grid or w/e 
+// buttons, onClick, etc 
+
+
+<label>Name:</label>
+      <input type="text" name="item1" defaultValue={shopCart.item1} onChange={(e) => handleChange(e)}/>
+      <br></br>
+      <label>Output:</label>
+      <pre>{JSON.stringify(shopCart, null, 2)}</pre>
+
+use a label to enter your gameID
+
+if gameID exists, lead you to another page
+http://localhost3000/game/28392332-43992394
+display current state of the game 
+9 on click buttons 
+
+get request to display 9 buttons on the page 
+
+
+onclick uses current URL
+http://localhost3000/game/28392332-43992394
+append X along with that button's position
+make post request
+
+
+
