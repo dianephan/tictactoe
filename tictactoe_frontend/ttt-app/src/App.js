@@ -1,32 +1,56 @@
 import logo from './logo.svg';
 import './App.css';
 import React, { useEffect, useState } from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  useParams,
+} from "react-router-dom";
+  
+function IndividualGame() { 
+  let { id } = useParams();
+  return <div style = {{ fontSize: "50px" }}>
+    Now showing post { id } 
+  </div>;
+}
 
-function App() {
+function Home () {
+  const [gameInfo, setGameInfo] = useState({
+    gameid: "",
+    exists: "",
+  });
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setGameInfo({ ...gameInfo, [event.target.gameid]: createGame()}); 
+    console.log(gameInfo); 
+  };
+
+  // const fetchDetails = () => {
+  //   fetch(`/game/${encodeURIComponent(gameInfo.gameid)}}`, {
+  //     method: "GET"
+  //     })
+  //       // .then(response => response.json())
+  //       // .then(response => console.log(response));  
+  // }
+
+  const createGame = () => {
+    fetch(`/game`, {method:"POST"})
+        .then(response => response.json())
+        .then(response => setGameInfo(response.json()))
+        .then(response => console.log("success for ", gameInfo.gameid))  
+        // store in useState
+  }
 
   useEffect(() => {
     // GET request using fetch inside useEffect React hook
     // created a new game here. need to store gameID in useState
-    fetch('/game', {method:"POST"})
-        .then(response => response.json())
-        .then(response => console.log(response));
-        
-
-// empty dependency array means this effect will only run once (like componentDidMount in classes)
+    createGame(); 
+    // console.log("game has been created", response.json.gameid)
 }, []);
 
-  const [gameID, setGameID] = useState({ gameid: {} });
-  const { id } = useParams(); 
-
-  const handleChange = (e) => {
-  // holds ids created from post req
-    let updatedValue = {};
-    updatedValue = {game1:e.target.value};
-    setGameID(gameID => ({
-      ...gameID,
-      ...updatedValue
-    }));
-  }
+  console.log("gameinfo = ", gameInfo); 
 
   return (
     <div className="App">
@@ -38,14 +62,49 @@ function App() {
           <label>
             <code>game id</code>
             <br></br>
-            <input type = "text" name = "gameid" />
+            <input 
+              type = "text" 
+              name = "lookup" 
+              placeholder='enter game id'
+              value = {gameInfo.exists}
+            />
           </label>
             <input type="submit" value="find game"/>
         </form>
- 
+        <br></br>
+
+        <form action = "/game" method = "POST" enctype = "multipart/form-data">
+          <label>
+            <code>create new game</code>
+            <br></br>
+          </label>
+            <input 
+              type="submit" 
+              name = "creategame"
+              value={gameInfo.gameid}
+              onChange = {handleSubmit}
+            />
+        </form>
 
       </header>
     </div>
+  );
+}
+
+function App() {
+
+  return (
+    <Router>
+      <Switch>
+        <Route path = "/game/:id">
+          <IndividualGame />
+        </Route>
+        <Route path = "/">
+          <Home></Home>
+        </Route>
+      </Switch>
+    </Router>
+
   );
 }
 

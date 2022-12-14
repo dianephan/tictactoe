@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="ee8c1ec2-62fa-4eb5-a4e1-e09a8ce4aff9" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../../TwilioSMS/TwilioSMS/API.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../TwilioSMS/TwilioSMS/TwilioRepository.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../DavidDemo/src/main/java/controller/EmployeeController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../DavidDemo/src/main/java/model/EmployeeRowMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../DavidDemo/src/main/resources/db/migration/V1__employee.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Java_ORC/.env" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Java_ORC/src/main/java/com/example/Java_ORC/ObjectRecognitionServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../akhilemail/src/main/java/com/example/twilio/akhilemail/controller/EmailController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../akhilsms/src/main/java/com/example/twilio/akhilsms/controller/SmsController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../catclicker/src/main/java/com/example/catclicker/CatRestController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../catclicker/src/main/java/com/example/catclicker/WebController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../catclicker/src/main/resources/static/tetra.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../catclicker/src/main/resources/templates/cat.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../clickbaitgame/src/main/java/com/example/clickbaitgame/RestController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../clickbaitgame/src/main/java/com/example/clickbaitgame/WebController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../dphan-todo/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../fakenumber_creep/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../fakenumber_creep/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../fakenumber_creep/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../fakenumber_creep/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../fakenumber_creep/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../fakenumber_creep/.idea/runConfigurations.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../fakenumber_creep/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../fakenumber_creep/src/main/java/YouBot.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../felistasWhatsApp/src/main/java/WhatsApp.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../javadb/src/main/java/com/example/javadb/controller/QuoteController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../javadb/src/main/java/com/example/javadb/model/Quote.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../javadb/src/main/java/com/example/javadb/repository/QuoteRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../javadb/src/main/java/com/example/javadb/service/QuoteService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../jdbcTemplate/src/main/java/com/twilio/jdbcTemplate/config/AppConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../jdbcTemplate/src/main/java/com/twilio/jdbcTemplate/controller/EmployeeController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../jdbcTemplate/src/main/java/com/twilio/jdbcTemplate/dao/EmployeeDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../jdbcTemplate/src/main/java/com/twilio/jdbcTemplate/dao/EmployeeDaoImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../jdbcTemplate/src/main/java/com/twilio/jdbcTemplate/model/Employee.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../jdbcTemplate/src/main/java/com/twilio/jdbcTemplate/model/EmployeeRowMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../jdbcTemplate/src/main/resources/db/migration/V1__employee.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../learning-spring/.idea/learning-spring.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../learning-spring/learning-spring/src/main/resources/static/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../learning-spring/learning-spring/src/main/resources/templates/reservations.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../learning_enums/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../learning_enums/src/Card.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../learning_enums/src/Face.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../learning_enums/src/Player.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../learning_enums/src/Suit.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../learning_enums/test/GameControllerTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lunch-orders/src/main/java/com/example/lunchorders/LunchList.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lunch-orders/src/main/java/com/example/lunchorders/TwiMLController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../newspringboot/src/main/java/com/example/newspringboot/NewRestController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ngrok_sms_spark/.idea/ngrok_sms_spark.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ngroksmsspark/src/main/java/SmsApp.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../openai/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../phonenumber_verifcation_system/src/main/java/com/twilio/phonenumber_verifcation_system/controller/PhoneNumberVerificationController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../phonenumber_verifcation_system/src/main/java/com/twilio/phonenumber_verifcation_system/service/credentials.envfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../pointsystem/src/main/java/com/example/pointsystem/PointModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../pointsystem/src/main/java/com/example/pointsystem/PointModelRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../pointsystem/src/main/java/com/example/pointsystem/PointsystemApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../pointsystem/src/main/java/com/example/pointsystem/SQLDialect.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../pointsystem/src/main/java/com/example/pointsystem/SqliteDataSource.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../pointsystem/src/main/java/com/example/pointsystem/WebController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../pointsystem/src/main/resources/application.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../restserviceholiday/src/main/java/com/example/restserviceholiday/controller/ProductController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../restserviceholiday/src/main/java/com/example/restserviceholiday/model/Product.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../restserviceholiday/src/main/java/com/example/restserviceholiday/repository/ProductRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../restserviceholiday/src/main/java/com/example/restserviceholiday/schedulingTasks/ProductScraperJob.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../restserviceholiday/src/main/java/com/example/restserviceholiday/service/ProductService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../rkay_testing/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../rkay_testing/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../rkay_testing/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../rkay_testing/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../rkay_testing/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../rkay_testing/.idea/runConfigurations.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../rkay_testing/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../rkay_testing/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../rkay_testing/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../rkay_testing/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../rkay_testing/gradlew" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../rkay_testing/gradlew.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../rkay_testing/src/main/java/Continuation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../rkay_testing/src/main/java/IManageTaskContract.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../rkay_testing/src/main/java/ITaskStorage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../rkay_testing/src/main/java/ManageTaskDecisionMaker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../rkay_testing/src/main/java/Validator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../rkay_testing/src/main/java/ValidatorTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../rkay_testing/src/test/java/FakeTaskStorage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../rkay_testing/src/test/java/FakeView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../rkay_testing/src/test/java/FakeViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../rkay_testing/src/test/java/ManageTaskDmTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../rkay_testing/src/test/java/TestData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../rkay_testing2/src/main/java/ValidatorTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../scavengerhunt/src/main/java/com/example/scavengerhunt/GameRestController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../scavengerhunt/src/main/java/com/example/scavengerhunt/WebController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../scavengerhunt/src/main/resources/static/banana.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../scavengerhunt/src/main/resources/static/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../scavengerhunt/src/main/resources/templates/game.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../scheduledtext/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../scheduledtext/src/main/java/ScheduledText.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../scheduledtext/twilio-9.0.0-rc.5-jar-with-dependencies.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../sms_gpt3writer/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../sms_gpt3writer/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../sms_gpt3writer/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../sms_gpt3writer/.idea/runConfigurations.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../sms_gpt3writer/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../sms_gpt3writer/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../sms_gpt3writer/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../sms_gpt3writer/gradlew" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../sms_gpt3writer/gradlew.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../sms_openai/src/main/java/SMSApp.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../sms_todolist/src/main/java/SimpleToDoList.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../sms_todolist/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../sms_todolist_v2/build.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../sms_todolist_v2/src/main/java/guide/SimpleToDoList.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../sms_todolist_v2/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../springbootapp/src/main/java/com/example/springbootapp/WebController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../springbootapp/src/main/resources/static/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../todolist/src/main/java/com/example/todolist/ToDoList.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../todolist/src/main/java/com/example/todolist/TwiMLController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../todolist/src/main/java/com/example/todolist/WebController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../todolist/src/main/resources/static/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../playground/Extensions.playground/Contents.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../playground/Extensions.playground/contents.xcplayground" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../playground/Extensions.playground/playground.xcworkspace/contents.xcworkspacedata" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../playground/Extensions.playground/playground.xcworkspace/xcuserdata/dphan.xcuserdatad/UserInterfaceState.xcuserstate" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../playground/LootLogger/LootLogger/Item.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../playground/LootLogger/LootLogger/ItemCell.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../playground/LootLogger/LootLogger/ItemStore.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../playground/LootLogger/LootLogger/ItemsViewController.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../playground/Photorama/Photorama/FlickrAPI.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../playground/Photorama/Photorama/PhotoStore.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../playground/Protocols.playground/Contents.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../playground/Protocols.playground/contents.xcplayground" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../playground/Protocols.playground/playground.xcworkspace/contents.xcworkspacedata" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../playground/Protocols.playground/playground.xcworkspace/xcuserdata/dphan.xcuserdatad/UserInterfaceState.xcuserstate" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../playground/ValueVsRefs.playground/Contents.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../playground/ValueVsRefs.playground/contents.xcplayground" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../playground/ValueVsRefs.playground/playground.xcworkspace/contents.xcworkspacedata" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../playground/ValueVsRefs.playground/playground.xcworkspace/xcuserdata/dphan.xcuserdatad/UserInterfaceState.xcuserstate" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../playground/WorldTrotter/WorldTrotter.xcodeproj/project.pbxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../playground/WorldTrotter/WorldTrotter.xcodeproj/project.xcworkspace/contents.xcworkspacedata" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../playground/WorldTrotter/WorldTrotter.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../playground/WorldTrotter/WorldTrotter.xcodeproj/project.xcworkspace/xcuserdata/dphan.xcuserdatad/UserInterfaceState.xcuserstate" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../playground/WorldTrotter/WorldTrotter.xcodeproj/xcuserdata/dphan.xcuserdatad/xcschemes/xcschememanagement.plist" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../playground/WorldTrotter/WorldTrotter/AppDelegate.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../playground/WorldTrotter/WorldTrotter/Assets.xcassets/AccentColor.colorset/Contents.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../playground/WorldTrotter/WorldTrotter/Assets.xcassets/AppIcon.appiconset/Contents.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../playground/WorldTrotter/WorldTrotter/Assets.xcassets/Contents.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../playground/WorldTrotter/WorldTrotter/Base.lproj/LaunchScreen.storyboard" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../playground/WorldTrotter/WorldTrotter/Base.lproj/Main.storyboard" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../playground/WorldTrotter/WorldTrotter/Info.plist" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../playground/WorldTrotter/WorldTrotter/SceneDelegate.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../playground/WorldTrotter/WorldTrotter/ViewController.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../playground/WorldTrotter/WorldTrotterTests/WorldTrotterTests.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../playground/WorldTrotter/WorldTrotterUITests/WorldTrotterUITests.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../playground/WorldTrotter/WorldTrotterUITests/WorldTrotterUITestsLaunchTests.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../playground/bnr-playground.playground/Pages/Untitled Page.xcplaygroundpage/Contents.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../playground/bnr-playground.playground/Pages/functions.xcplaygroundpage/Contents.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../playground/bnr-playground.playground/contents.xcplayground" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../playground/bnr-playground.playground/playground.xcworkspace/contents.xcworkspacedata" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../playground/bnr-playground.playground/playground.xcworkspace/xcuserdata/dphan.xcuserdatad/UserInterfaceState.xcuserstate" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../playground/bnr-playground.playground/xcuserdata/dphan.xcuserdatad/xcschemes/xcschememanagement.plist" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../playground/monstertown/monstertown.xcodeproj/project.pbxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../playground/monstertown/monstertown.xcodeproj/project.xcworkspace/contents.xcworkspacedata" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../playground/monstertown/monstertown.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../playground/monstertown/monstertown.xcodeproj/project.xcworkspace/xcuserdata/dphan.xcuserdatad/UserInterfaceState.xcuserstate" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../playground/monstertown/monstertown.xcodeproj/xcuserdata/dphan.xcuserdatad/xcschemes/xcschememanagement.plist" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../playground/monstertown/monstertown/Zombie.swift" afterDir="false" />
+    </list>
+    <list id="9177b1ee-25cc-4b01-8d15-28b40094af17" name="Changes by mgilliard" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Enum" />
+        <option value="AnnotationType" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="ProjectId" id="2HMij1i33oXQiS6LWeQDb13uuby" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="reference.settings.project.maven.repository.indices" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.example.tictactoe.controller" />
+      <recent name="com.example.tictactoe.repository" />
+      <recent name="com.example.tictactoe.model" />
+      <recent name="controller" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/test/resources" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.example.tictactoe" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.example.tictactoe.config" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JUnit.GameTest">
+    <configuration name="GameTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="tictactoe" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.tictactoe.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.tictactoe" />
+      <option name="MAIN_CLASS_NAME" value="com.example.tictactoe.GameTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GameTest.invalidMoveGameOver" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="tictactoe" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.tictactoe.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.tictactoe" />
+      <option name="MAIN_CLASS_NAME" value="com.example.tictactoe.GameTest" />
+      <option name="METHOD_NAME" value="invalidMoveGameOver" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GameTest.invalidPiece" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="tictactoe" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.tictactoe.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.tictactoe" />
+      <option name="MAIN_CLASS_NAME" value="com.example.tictactoe.GameTest" />
+      <option name="METHOD_NAME" value="invalidPiece" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GameTest.positionOutOfBounds" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="tictactoe" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.tictactoe.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.tictactoe" />
+      <option name="MAIN_CLASS_NAME" value="com.example.tictactoe.GameTest" />
+      <option name="METHOD_NAME" value="positionOutOfBounds" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GameTest.wrongTurn" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="tictactoe" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.tictactoe.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.tictactoe" />
+      <option name="MAIN_CLASS_NAME" value="com.example.tictactoe.GameTest" />
+      <option name="METHOD_NAME" value="wrongTurn" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TictactoeApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="tictactoe" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.tictactoe.TictactoeApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.GameTest" />
+        <item itemvalue="JUnit.GameTest.invalidMoveGameOver" />
+        <item itemvalue="JUnit.GameTest.wrongTurn" />
+        <item itemvalue="JUnit.GameTest.positionOutOfBounds" />
+        <item itemvalue="JUnit.GameTest.invalidPiece" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ee8c1ec2-62fa-4eb5-a4e1-e09a8ce4aff9" name="Changes" comment="" />
+      <created>1668101487558</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1668101487558</updated>
+      <workItem from="1668101491262" duration="12936000" />
+      <workItem from="1668390480766" duration="35345000" />
+      <workItem from="1668630805032" duration="324000" />
+      <workItem from="1668662370310" duration="7008000" />
+      <workItem from="1668985133112" duration="34627000" />
+      <workItem from="1669313915073" duration="2205000" />
+      <workItem from="1669599064502" duration="3815000" />
+      <workItem from="1669611907937" duration="1104000" />
+      <workItem from="1669745566427" duration="31177000" />
+      <workItem from="1669841738790" duration="3059000" />
+      <workItem from="1669914857138" duration="75000" />
+      <workItem from="1669914943687" duration="693000" />
+      <workItem from="1669916341282" duration="9929000" />
+      <workItem from="1669971180464" duration="4108000" />
+      <workItem from="1670017933463" duration="393000" />
+      <workItem from="1670018471437" duration="45145000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.IllegalArgumentException" package="java.lang" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
