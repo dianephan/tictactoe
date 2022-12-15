@@ -19,6 +19,7 @@ display current state of the game
 9 on click buttons 
 
 get request to display 9 buttons on the page 
+Button Component on top of Board Component? 
 
 
 onclick uses current URL
