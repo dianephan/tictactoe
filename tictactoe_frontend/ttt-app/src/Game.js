@@ -43,12 +43,14 @@ function Game({ gameId }) {
     return <div>Loading...</div>
   }
 
-  return (<div style={{ fontSize: "50px" }}>
-    {gameId} in session 
-    <br></br>
-    {game.currentState}
+  return (
+  <div style={{ fontSize: "20px" }}>
+    <title>{gameId} in session </title>
+    <h4>{gameId} in session </h4>
+    <h4>{game.currentState}</h4>
+    <p>
     <Board game={game} makeMove={makeMove} />
-
+    </p>
   </div>);
 }
 
