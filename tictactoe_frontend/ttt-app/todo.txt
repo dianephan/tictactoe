@@ -5,27 +5,16 @@
 // buttons, onClick, etc 
 
 
-<label>Name:</label>
-      <input type="text" name="item1" defaultValue={shopCart.item1} onChange={(e) => handleChange(e)}/>
-      <br></br>
-      <label>Output:</label>
-      <pre>{JSON.stringify(shopCart, null, 2)}</pre>
-
-use a label to enter your gameID
-
-if gameID exists, lead you to another page
-http://localhost3000/game/28392332-43992394
-display current state of the game 
-9 on click buttons 
+if gameID exists, don't need to change the URL
+- just change the UI on the homepage 
+- display current state of the game 
+- 9 on click buttons on board.js 
 
 get request to display 9 buttons on the page 
 Button Component on top of Board Component? 
 
 
-onclick uses current URL
-http://localhost3000/game/28392332-43992394
-append X along with that button's position
-make post request
 
-
-
+myObject = {"name": "Diane", "Birthday": "Dec 17th"}
+console.log(myObject);
+console.log({myObject});

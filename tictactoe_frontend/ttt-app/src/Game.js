@@ -1,46 +1,56 @@
-import logo from './logo.svg';
-import './App.css';
-import React, { useEffect, useState } from 'react';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  useParams,
-} from "react-router-dom";
+import { useEffect, useState } from 'react'
+import Board from "./Board";
 
-function Game() { 
-  let { id } = useParams();
-  let jsondata; 
-  // var gameid = document.getElementById("gameid").value;
+function Game({ gameId }) {
+
+  const [game, setGame] = useState(null);
+
+  const fetchGame = (gameId) => {
+    fetch(`/game/${gameId}`, { method: "GET" })
+      .then(response => response.json())
+      .then(responseJson => {
+        setGame(responseJson.game);
+        console.log("Fetched game from server");
+        console.log({ responseJson });
+      });
+  }
+
+  const makeMove = (n) => {
+    var piece;
+    if (game.currentState === "X_TURN") {
+      piece = "X";
+    } else if (game.currentState === "O_TURN") {
+      piece = "O";
+    }
+
+    // make an API call to the server to make the move of piece at cell n
+    // n +1 because Game.java lol 
+    fetch(`/game/${gameId}/${piece}/${n+1}`, { method: "POST" })
+      .then(response => response.json())
+      .then(responseJson => {
+        setGame(responseJson.game);
+        console.log("Made the move");
+        console.log({ responseJson });
+      });
+  }
+
   useEffect(() => {
-    fetch(`/game/${id}`, {method:"GET"})
-        .then(response => response.json())
-        .then(response => console.log("get req for ", response))
-        .then((response) => {
-          this.setState({
-              isLoading: false,
-              dataSource: response.shosfc.weekday[7]
-          }, function(){
-              jsondata = response;
-              console.log("jsondata = ", jsondata)
-          })
-        })
-      
+    fetchGame(gameId);
+  },
+    [gameId]);
 
-  }, [id]); 
+  if (game === null) {
+    return <div>Loading...</div>
+  }
 
+  return (<div style={{ fontSize: "50px" }}>
+    {gameId} in session 
+    <br></br>
+    {game.currentState}
+    <Board game={game} makeMove={makeMove} />
 
-  // const fetchDetails = () => {
-  //   fetch(`/game/${encodeURIComponent(gameInfo.gameid)}}`, {
-  //     method: "GET"
-  //     })
-  //       // .then(response => response.json())
-  //       // .then(response => console.log(response));  
-  // }  
-
-  return <div style = {{ fontSize: "50px" }}>
-    now showing game <br></br> { id } 
-  </div>;
+  </div>);
 }
 
 export default Game;
+
