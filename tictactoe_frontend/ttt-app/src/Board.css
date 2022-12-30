@@ -28,3 +28,40 @@ h4 {
     grid-template-rows: 33% 33% 33%;
     max-width: 300px;
 }
+
+.answer-board {
+  margin: auto;
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+  grid-template-rows: 15% 15% 15% 15%;
+  max-width: 300px;
+  left: 20px; 
+}
+
+.quiz-question {
+  font-size: 20px;
+  font-family: "Lucida Console", "Courier New", monospace;
+  text-align: center;
+  /* max-width: 300px; */
+  position: absolute;
+  bottom: 20px;
+  left: 0px;
+}
+
+.child {
+  border: 2px dashed rgba(0, 0, 0, 0.075);
+  border-radius: 4px;
+  color: red;
+  cursor: pointer;
+  margin: 16px;
+  min-width: calc((100% / 4) - 32px);
+  max-width: calc((100% / 4) - 32px);
+  padding: 32px;
+  text-align: center;
+  margin: auto;  
+}
+
+.child:hover {
+  border: 2px solid teal;
+  color: #409eff;
+}

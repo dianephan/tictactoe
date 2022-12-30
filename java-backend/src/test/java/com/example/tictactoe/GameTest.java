@@ -2,6 +2,7 @@ package com.example.tictactoe;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
@@ -15,6 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+//        exclude = {DataSourceAutoConfiguration.class }
 public class GameTest {
 
     @LocalServerPort
@@ -186,4 +188,17 @@ public class GameTest {
         assertThat(result.status).isEqualTo(400);
         assertThat(result.message).contains("Game is already over.");
     }
+
+//    public void validMoveRightAnswer() {
+//        String gameId = createNewGame();
+//        Game afterFirstMove = makeNewMove(gameId, "X", 1);
+//        assertThat(afterFirstMove.currentState).isEqualTo("O_TURN");
+//        assertThat(afterFirstMove.cells.get(0)).isEqualTo("X");
+//    }
+//
+//
+//    @Test
+//    public void validMoveWrongAnswer() {
+//
+//    }
 }

@@ -6,6 +6,8 @@ import org.slf4j.LoggerFactory;
 import static com.example.tictactoe.model.GameState.*;
 import static com.example.tictactoe.model.Cell.*;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Game {
     private static final Logger LOG = LoggerFactory.getLogger(Game.class);
@@ -16,11 +18,21 @@ public class Game {
 
     private GameState currentState;
 
+    private final Map<Integer, Integer> questions = new HashMap<>();
     private int countOfPiecesPlaced = 0;
 
     public Game(String id) {
         this.id = id;
-        Arrays.fill(cells, EMPTY);
+        Arrays.fill(cells, Cell.EMPTY);
+        questions.put(1, 3);
+        questions.put(2, 1);
+        questions.put(3, 3);
+        questions.put(4, 2);
+        questions.put(5, 1);
+        questions.put(6, 3);
+        questions.put(7, 3);
+        questions.put(8, 4);
+        questions.put(9, 2);
         currentState = X_TURN;
     }
 
@@ -61,11 +73,14 @@ public class Game {
         if (pieceXturnO(piece) || pieceOturnX(piece)) {
             return false;
         } else {
-            // you know that the piece is correct so time to
             cells[ourPosition] = piece;
             countOfPiecesPlaced += 1;
+
+            // answerIsCorrect return true
+            // else false
+
             currentState = currentState.switchTurns();
-            // if those surrounding the piece are same, then Victory
+            // determine victory
             if ((cells[0].equals(piece) && cells[1].equals(piece) && cells[2].equals(piece))
                     || (cells[3].equals(piece) && cells[4].equals(piece) && cells[5].equals(piece))
                     || (cells[6].equals(piece) && cells[7].equals(piece) && cells[8].equals(piece))

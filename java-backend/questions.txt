@@ -1,0 +1,113 @@
+https://quizlet.com/345764568/finra-website-sie-practice-exam-questions-flash-cards/
+
+1. Under the Securities act of 1933, registration is required for which of the following securities?
+   1. Eurodollar bonds
+   2. Municipal securities
+   3. American Depositary Receipts (ADRs)
+   4. Securities issued by the federal government
+
+2. Which of the following outcomes are possible for the writer of a covered call option?
+
+   1. Profit limited and loss limited
+   2. Profit limited and loss unlimited
+   3. Profit unlimited and loss limited
+   4. Profit unlimited and loss unlimited
+
+3. A registered representative (RR) who wants to place a mutual fund advertisement must obtain written approval from which of the following parties?
+
+   1. FINRA
+   2. Each State's securities administrator
+   3. A registered principal of the RR's firm
+   4. The investment management division of the appropriate regional SEC office
+
+4. An investor owns 100 shares of XYZ common stock at the current market price of $50 per share. If XYZ conducts a 1-for-2 reverse stock split, the investor's post-split stock position will be:
+
+   1. 50 shares at $25 per share
+   2. 50 shares at $100 per share
+   3. 200 shares at $25 per share
+   4. 200 shares at $100 per share
+
+5. A firm is a participant in a public offering. To sell a substantial amount of the securities to its customers, the firm agrees to repurchase the shares at no less than the original cales price. Such agreements are:
+
+   1. Prohibited as fraudulent and manipulative
+   2. Permissible if the securities are deposited into escrow
+   3. Prohibited unless the firm immediately sets aside funds for the repurchase
+   4. Permissible if the customers retain the right to sell the securities into the open market
+
+6. Which of the following security types provides investors with a stated security date, a floating interest rate, and an option to put the security back to a financial intermediary on a dairy or weekly basis?
+
+   1. Equity put option
+   2. Perpetual preferred stock
+   3. Variable rate demand note
+   4. Tax-deferred variable annuity
+
+7. Which of the following investments are generally traded according to their average life rather than their stated maturity date?
+
+   1. Corporate bonds
+   2. Government bonds
+   3. Asset-backed securities
+   4. Fixed-rate capital securities
+
+8. Under FINRA rules, non cash compensation connected with the sale of variable contracts includes all of the following items except:
+
+   1. Gifts
+   2. Meals
+   3. Lodging
+   4. Commissions
+
+9. FinCen accomplishes its mission to safeguard the financial system from the abuses of financial crime, including terrorist financing and money laundering, by enforcing:
+
+   1. SEC regulations
+   2. The Bank Secrecy Act
+   3. The Securities Act of 1933
+   4. The Investment Company Act of 1940
+
+   questions.put(1, 3);
+   questions.put(2, 1);
+   questions.put(3, 3);
+   questions.put(4, 2);
+   questions.put(5, 1);
+   questions.put(6, 3);
+   questions.put(7, 3);
+   questions.put(8, 4);
+   questions.put(9, 2);
+
+   drop table questions;
+
+       CREATE TABLE questions (
+           questionID int NOT NULL AUTO_INCREMENT,
+           question_string text not null,
+       PRIMARY KEY (questionID)
+   );
+
+INSERT INTO questions (question_string) VALUES
+("""Under the Securities act of 1933, registration is required for which of the following securities?\\n\\n\t1. Eurodollar bonds\\n\t2. Municipal securities\\n\t3. American Depositary Receipts (ADRs)\\n\t4. Securities issued by the federal government
+"""),
+("""Which of the following outcomes are possible for the writer of a covered call option?\\n\\n\t1. Profit limited and loss limited\\n\t2. Profit limited and loss unlimited\\n\t3. Profit unlimited and loss limited\\n\t4. Profit unlimited and loss unlimited
+"""),
+   ("""A registered representative (RR) who wants to place a mutual fund advertisement must obtain written approval from which of the following parties?\\n\\n\t1. FINRA\\n\t2. Each State's securities administrator\\n\t3. A registered principal of the RR's firm\\n\t4. The investment management division of the appropriate regional SEC office\\n
+"""),
+   ("""An investor owns 100 shares of XYZ common stock at the current market price of $50 per share. If XYZ conducts a 1-for-2 reverse stock split, the investor's post-split stock position will be:\\n\\n\t1. 50 shares at $25 per share\\n\t2. 50 shares at $100 per share\\n\t3. 200 shares at $25 per share\\n\t4. 200 shares at $100 per share\\n
+          """),
+  ("""A firm is a participant in a public offering. To sell a substantial amount of the securities to its customers, the firm agrees to repurchase the shares at no less than the original cales price. Such agreements are:\\n\t1. Prohibited as fraudulent and manipulative\\n\t2. Permissible if the securities are deposited into escrow\\n\t3. Prohibited unless the firm immediately sets aside funds for the repurchase\\n\t4. Permissible if the customers retain the right to sell the securities into the open market
+         """),
+  ("""Which of the following security types provides investors with a stated security date, a floating interest rate, and an option to put the security back to a financial intermediary on a dairy or weekly basis?\\n\t1. Equity put option\\n\t2. Perpetual preferred stock\\n\t3. Variable rate demand note\\n\t4. Tax-deferred variable annuity
+         """),
+  ("""Which of the following investments are generally traded according to their average life rather than their stated maturity date?\\n\t1. Corporate bonds\\n\t2. Government bonds\\n\t3. Asset-backed securities\\n\t4. Fixed-rate capital securities\\n\t
+         """),
+  ("""Under FINRA rules, non cash compensation connected with the sale of variable contracts includes all of the following items except:\\n\t1. Gifts\\n\t2. Meals\\n\t3. Lodging\\n\t4. Commissions\\n\t
+         """),
+  ("""FinCen accomplishes its mission to safeguard the financial system from the abuses of financial crime, including terrorist financing and money laundering, by enforcing:\\n\t1. SEC regulations\\n\t2. The Bank Secrecy Act\\n\t3. The Securities Act of 1933\\n\t4. The Investment Company Act of 1940\\n\t
+         """)
+  ;
+
+
+
+spring.jpa.hibernate.ddl-auto=update
+spring.datasource.url=jdbc:mysql://${MYSQL_HOST:localhost}:3306/questions_database
+spring.datasource.username=username
+spring.datasource.password=password
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+logging.level.org.hibernate.SQL=DEBUG
+logging.level.org.hibernate.type.descriptor.sql.BasicBinder=TRACE
+spring.jpa.hibernate.naming.physical-strategy=org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl

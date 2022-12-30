@@ -2,7 +2,9 @@ package com.example.tictactoe.controller;
 
 import com.example.tictactoe.model.Cell;
 import com.example.tictactoe.model.Game;
+import com.example.tictactoe.model.Question;
 import com.example.tictactoe.service.GameService;
+import com.example.tictactoe.repository.QuestionRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +24,12 @@ public class GameRestController {
     private static final Logger LOG = LoggerFactory.getLogger(GameRestController.class);
 
     private final GameService myGameService;
+    private QuestionRepository questionRepository;
 
     @Autowired
-    public GameRestController(GameService gameService) {
+    public GameRestController(GameService gameService, QuestionRepository questionRepository) {
         myGameService = gameService;
+        this.questionRepository = questionRepository;
     }
 
     @PostMapping("/game")
@@ -40,6 +44,16 @@ public class GameRestController {
         return ResponseEntity.of(myGameService
                 .getGame(gameId)
                 .map(g -> Map.of("game", g)));
+    }
+
+    @GetMapping("/game/{game-id}/{piece}/{position}")
+    public ResponseEntity<String> displayQuestion(@PathVariable("game-id") String gameId,
+                                                  @PathVariable("piece") String piece,
+                                                  @PathVariable("position") Integer position) {
+        // for MVP dont worry about gameID and piece
+        return ResponseEntity.of(questionRepository
+                .findById(Long.valueOf(position))
+                .map(Question::getQuestion));
     }
 
     @PostMapping("/game/{game-id}/{piece}/{position}")
@@ -73,7 +87,8 @@ public class GameRestController {
 
         boolean wasTheMoveAllowed = theGame.changeCell(Cell.valueOf(piece), position);
         if (wasTheMoveAllowed) {
-            // the move was allowed, return and we're done
+            // the move was allowed, return quic question
+
             return ResponseEntity.ok(Map.of("game", theGame));
         }
         // either spot is taken or same piece tried to go again
