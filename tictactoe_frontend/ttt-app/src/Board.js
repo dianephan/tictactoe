@@ -1,6 +1,15 @@
 import './Board.css';
+import { useEffect, useState } from 'react'
 
-function Board({ game, makeMove, displayQuestion, question }) {
+function Board({ game,
+  makeMove,
+  displayQuestion,
+  question,
+  questionCorrect,
+  answer
+}) {
+
+  const [position, setPosition] = useState([0])
 
   const displayValues = {
     "X": "✕",
@@ -15,33 +24,32 @@ function Board({ game, makeMove, displayQuestion, question }) {
   const clicked = (n) => {
     return (e) => {
       if (game.cells[n] === "EMPTY") {
-        const textobj = displayQuestion(n);
+        displayQuestion(n);
+        setPosition(n)
       }
     }
   }
 
-  const answerClick = (num) => {
+  const answerClick = (option) => {
     return (e) => {
-      console.log("you clicked ", num)
-      // check if answer correct before making move
-      // if (questionCorrect) {
-      //   makeMove(num, textobj);
-      // } else {
-      //   console.log("Wrong")
-      // }
+      console.log("you clicked ", option, " for position ", position + 1)
+      var result = questionCorrect(position, option)  // this gives us the promise
+      console.log("answer = ", answer)
+      console.log("result = ", result)
+
+      if (answer == true) {
+        makeMove(position)
+        console.log("correct")
+      } else {
+        console.log("cannot make move")
+      }
     }
   }
-
-  // dispay question
-  // if question is correct 
-  // make post request to change gamestate 
 
   return (
     <div className="game-board">
       <div>
-        <div className="box" onClick={
-          clicked(0)
-        }>{cellDisplay(0)}</div>
+        <div className="box" onClick={clicked(0)}>{cellDisplay(0)}</div>
 
         <div className="box" onClick={clicked(3)}>{cellDisplay(3)}</div>
         <div className="box" onClick={clicked(6)}>{cellDisplay(6)}</div>
@@ -58,6 +66,8 @@ function Board({ game, makeMove, displayQuestion, question }) {
       </div>
       <p>
         <div className='quiz-question'> {question}
+          <br></br>
+          {answer}
           <div className='answer-board'>
             <div className='child' onClick={answerClick(1)}>1</div>
             <div className='child' onClick={answerClick(2)}>2</div>

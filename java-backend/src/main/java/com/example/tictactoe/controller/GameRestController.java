@@ -50,10 +50,27 @@ public class GameRestController {
     public ResponseEntity<String> displayQuestion(@PathVariable("game-id") String gameId,
                                                   @PathVariable("piece") String piece,
                                                   @PathVariable("position") Integer position) {
-        // for MVP dont worry about gameID and piece
         return ResponseEntity.of(questionRepository
                 .findById(Long.valueOf(position))
                 .map(Question::getQuestion));
+    }
+
+    // to test this, have to create game first then use that game's ID
+    @GetMapping("/game/{game-id}/{piece}/{position}/{answer}")
+    public boolean lookUpAnswer(@PathVariable("game-id") String gameId,
+                                               @PathVariable("piece") String piece,
+                                               @PathVariable("position") Integer position,
+                                               @PathVariable("answer") Integer answer) {
+
+        Optional<Game> currentGame = myGameService.getGame(gameId);
+        Game theGame = currentGame.get();
+
+        System.out.print(theGame.getQuestions());
+        boolean wasAnswerCorrect = theGame.checkAnswer(position, answer);
+        if (wasAnswerCorrect) {
+            return true;
+        }
+        return false;
     }
 
     @PostMapping("/game/{game-id}/{piece}/{position}")

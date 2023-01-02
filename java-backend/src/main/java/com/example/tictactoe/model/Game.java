@@ -3,6 +3,9 @@ package com.example.tictactoe.model;
 // Game: represents a single game, including id, board state, who's move is it next, etc?
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
 import static com.example.tictactoe.model.GameState.*;
 import static com.example.tictactoe.model.Cell.*;
 import java.util.Arrays;
@@ -40,6 +43,19 @@ public class Game {
         return id;
     }
 
+    public Map<Integer, Integer> getQuestions() {
+        return questions;
+    }
+
+    public boolean checkAnswer(Integer position, Integer answer) {
+        Integer answerKey = questions.get(position);
+        if (answerKey == answer) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public String toString() {
         return
                 currentState.toString() + "\n" +
@@ -75,9 +91,6 @@ public class Game {
         } else {
             cells[ourPosition] = piece;
             countOfPiecesPlaced += 1;
-
-            // answerIsCorrect return true
-            // else false
 
             currentState = currentState.switchTurns();
             // determine victory
@@ -118,9 +131,5 @@ public class Game {
 
     public boolean isOver() {
         return currentState.equals(DRAW) || currentState.equals(O_VICTORY) || currentState.equals(X_VICTORY);
-    }
-
-    public boolean isInSession() {
-        return currentState.equals(X_TURN) || currentState.equals(O_TURN);
     }
 }
