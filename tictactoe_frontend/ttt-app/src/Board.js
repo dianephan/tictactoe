@@ -1,15 +1,16 @@
 import './Board.css';
 import { useEffect, useState } from 'react'
 
-function Board({ game,
+function Board({
+  game,
   makeMove,
   displayQuestion,
   question,
   questionCorrect,
-  answer
 }) {
 
   const [position, setPosition] = useState([0])
+  const [answer, setAnswer] = useState(0)
 
   const displayValues = {
     "X": "✕",
@@ -24,6 +25,7 @@ function Board({ game,
   const clicked = (n) => {
     return (e) => {
       if (game.cells[n] === "EMPTY") {
+        setAnswer(0)
         displayQuestion(n);
         setPosition(n)
       }
@@ -31,13 +33,11 @@ function Board({ game,
   }
 
   const answerClick = (option) => {
-    return (e) => {
+    return async (e) => {
       console.log("you clicked ", option, " for position ", position + 1)
-      var result = questionCorrect(position, option)  // this gives us the promise
-      console.log("answer = ", answer)
-      console.log("result = ", result)
-
-      if (answer == true) {
+      const result = await questionCorrect(position, option)  // this gives us the promise
+      setAnswer(result)
+      if (result == 1) {
         makeMove(position)
         console.log("correct")
       } else {
@@ -75,8 +75,8 @@ function Board({ game,
             <div className='child' onClick={answerClick(4)}>4</div>
           </div>
         </div>
-      </p>
-    </div>
+      </p >
+    </div >
   )
 }
 

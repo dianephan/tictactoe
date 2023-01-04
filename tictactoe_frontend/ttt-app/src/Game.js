@@ -5,7 +5,6 @@ function Game({ gameId }) {
 
   const [game, setGame] = useState(null);
   const [question, setQuestion] = useState(["Quiz question appears here"])
-  const [answer, setAnswer] = useState(0)
 
   const fetchGame = (gameId) => {
     fetch(`/game/${gameId}`, { method: "GET" })
@@ -39,7 +38,6 @@ function Game({ gameId }) {
     }
     const returnResponse = await fetch(`/game/${gameId}/${piece}/${position+1}/${option}`, { method: "GET" })
     const obj = await returnResponse.text()
-    setAnswer(obj);
     return obj; 
   }
 
@@ -82,11 +80,9 @@ function Game({ gameId }) {
       displayQuestion={displayQuestion} 
       question = {question}
       questionCorrect = {questionCorrect} 
-      answer = {answer}
       />
     </p>
   </div>);
 }
 
 export default Game;
-
