@@ -26,7 +26,14 @@ function Game({ gameId }) {
     const returnResponse = await fetch(`/game/${gameId}/${piece}/${n+1}`, { method: "GET" })
     const obj = await returnResponse.text()
     setQuestion(obj);
+    // return parseQuestion(obj);
     return obj;
+  }
+
+  const parseQuestion = (q) => { 
+    var newString = q.split('\n');
+    console.log(newString)
+    return newString;
   }
 
   const questionCorrect = async (position, option) => {

@@ -37,7 +37,7 @@ function Board({
       console.log("you clicked ", option, " for position ", position + 1)
       const result = await questionCorrect(position, option)  // this gives us the promise
       setAnswer(result)
-      if (result == 1) {
+      if (result === "true") {
         makeMove(position)
         console.log("correct")
       } else {
@@ -50,7 +50,6 @@ function Board({
     <div className="game-board">
       <div>
         <div className="box" onClick={clicked(0)}>{cellDisplay(0)}</div>
-
         <div className="box" onClick={clicked(3)}>{cellDisplay(3)}</div>
         <div className="box" onClick={clicked(6)}>{cellDisplay(6)}</div>
       </div>
