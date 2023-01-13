@@ -2,7 +2,9 @@ package com.example.tictactoe.controller;
 
 import com.example.tictactoe.model.Cell;
 import com.example.tictactoe.model.Game;
+import com.example.tictactoe.model.Question;
 import com.example.tictactoe.service.GameService;
+import com.example.tictactoe.repository.QuestionRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +24,12 @@ public class GameRestController {
     private static final Logger LOG = LoggerFactory.getLogger(GameRestController.class);
 
     private final GameService myGameService;
+    private QuestionRepository questionRepository;
 
     @Autowired
-    public GameRestController(GameService gameService) {
+    public GameRestController(GameService gameService, QuestionRepository questionRepository) {
         myGameService = gameService;
+        this.questionRepository = questionRepository;
     }
 
     @PostMapping("/game")
@@ -41,6 +45,31 @@ public class GameRestController {
                 .getGame(gameId)
                 .map(g -> Map.of("game", g)));
     }
+
+    @GetMapping("/game/{game-id}/{piece}/{position}")
+    public ResponseEntity<Question> displayQuestion(@PathVariable("game-id") String gameId,
+                                                  @PathVariable("piece") String piece,
+                                                  @PathVariable("position") Integer position) {
+        return ResponseEntity.of(questionRepository.getRandomQuestion());
+//                .findById(Long.valueOf(position)));
+    }
+
+//    @GetMapping("/game/{game-id}/{piece}/{position}/{answer}")
+//    public boolean lookUpAnswer(@PathVariable("game-id") String gameId,
+//                                               @PathVariable("piece") String piece,
+//                                               @PathVariable("position") Integer position,
+//                                               @PathVariable("answer") Integer answer) {
+//
+//        Optional<Game> currentGame = myGameService.getGame(gameId);
+//        Game theGame = currentGame.get();
+//
+//        System.out.print(theGame.getQuestions());
+//        boolean wasAnswerCorrect = theGame.checkAnswer(position, answer);
+//        if (wasAnswerCorrect) {
+//            return true;
+//        }
+//        return false;
+//    }
 
     @PostMapping("/game/{game-id}/{piece}/{position}")
     public ResponseEntity<Map<String, Object>> movePiece(@PathVariable("game-id") String gameId,
@@ -73,7 +102,8 @@ public class GameRestController {
 
         boolean wasTheMoveAllowed = theGame.changeCell(Cell.valueOf(piece), position);
         if (wasTheMoveAllowed) {
-            // the move was allowed, return and we're done
+            // the move was allowed, return quic question
+
             return ResponseEntity.ok(Map.of("game", theGame));
         }
         // either spot is taken or same piece tried to go again

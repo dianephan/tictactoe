@@ -1,11 +1,16 @@
 package com.example.tictactoe.model;
 
 // Game: represents a single game, including id, board state, who's move is it next, etc?
+import com.example.tictactoe.repository.QuestionRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import static com.example.tictactoe.model.GameState.*;
 import static com.example.tictactoe.model.Cell.*;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.*;
 
 public class Game {
     private static final Logger LOG = LoggerFactory.getLogger(Game.class);
@@ -16,16 +21,22 @@ public class Game {
 
     private GameState currentState;
 
+    private  final Map<Integer, Integer> questions = new HashMap<>();
     private int countOfPiecesPlaced = 0;
+    private QuestionRepository questionRepository;
 
     public Game(String id) {
         this.id = id;
-        Arrays.fill(cells, EMPTY);
+        Arrays.fill(cells, Cell.EMPTY);
         currentState = X_TURN;
     }
 
     public String getId() {
         return id;
+    }
+
+    public Map<Integer, Integer> getQuestions() {
+        return questions;
     }
 
     public String toString() {
@@ -61,11 +72,11 @@ public class Game {
         if (pieceXturnO(piece) || pieceOturnX(piece)) {
             return false;
         } else {
-            // you know that the piece is correct so time to
             cells[ourPosition] = piece;
             countOfPiecesPlaced += 1;
+
             currentState = currentState.switchTurns();
-            // if those surrounding the piece are same, then Victory
+            // determine victory
             if ((cells[0].equals(piece) && cells[1].equals(piece) && cells[2].equals(piece))
                     || (cells[3].equals(piece) && cells[4].equals(piece) && cells[5].equals(piece))
                     || (cells[6].equals(piece) && cells[7].equals(piece) && cells[8].equals(piece))
@@ -103,9 +114,5 @@ public class Game {
 
     public boolean isOver() {
         return currentState.equals(DRAW) || currentState.equals(O_VICTORY) || currentState.equals(X_VICTORY);
-    }
-
-    public boolean isInSession() {
-        return currentState.equals(X_TURN) || currentState.equals(O_TURN);
     }
 }
