@@ -1,16 +1,16 @@
 package com.example.tictactoe.model;
 
 // Game: represents a single game, including id, board state, who's move is it next, etc?
+import com.example.tictactoe.repository.QuestionRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 
 import static com.example.tictactoe.model.GameState.*;
 import static com.example.tictactoe.model.Cell.*;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.*;
 
 public class Game {
     private static final Logger LOG = LoggerFactory.getLogger(Game.class);
@@ -21,21 +21,13 @@ public class Game {
 
     private GameState currentState;
 
-    private final Map<Integer, Integer> questions = new HashMap<>();
+    private  final Map<Integer, Integer> questions = new HashMap<>();
     private int countOfPiecesPlaced = 0;
+    private QuestionRepository questionRepository;
 
     public Game(String id) {
         this.id = id;
         Arrays.fill(cells, Cell.EMPTY);
-        questions.put(1, 3);
-        questions.put(2, 1);
-        questions.put(3, 3);
-        questions.put(4, 2);
-        questions.put(5, 1);
-        questions.put(6, 3);
-        questions.put(7, 3);
-        questions.put(8, 4);
-        questions.put(9, 2);
         currentState = X_TURN;
     }
 
@@ -45,15 +37,6 @@ public class Game {
 
     public Map<Integer, Integer> getQuestions() {
         return questions;
-    }
-
-    public boolean checkAnswer(Integer position, Integer answer) {
-        Integer answerKey = questions.get(position);
-        if (answerKey == answer) {
-            return true;
-        } else {
-            return false;
-        }
     }
 
     public String toString() {

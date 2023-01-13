@@ -5,6 +5,7 @@ function Game({ gameId }) {
 
   const [game, setGame] = useState(null);
   const [question, setQuestion] = useState(["Quiz question appears here"])
+  const [answerChoices, setAnswerChoices] = useState(['answer choices here'])
 
   const fetchGame = (gameId) => {
     fetch(`/game/${gameId}`, { method: "GET" })
@@ -17,46 +18,17 @@ function Game({ gameId }) {
   }
 
   const displayQuestion = async (n) => {
-    var piece;
-    if (game.currentState === "X_TURN") {
-      piece = "X";
-    } else if (game.currentState === "O_TURN") {
-      piece = "O";
-    }
+    var piece = checkPiece(game.currentState);
     const returnResponse = await fetch(`/game/${gameId}/${piece}/${n+1}`, { method: "GET" })
-    const obj = await returnResponse.text()
-    setQuestion(obj);
-    // return parseQuestion(obj);
-    return obj;
+    const obj = await returnResponse.json()
+    const answers = [obj.ans_one, obj.ans_two, obj.ans_three, obj.ans_four, obj.correct_ans]
+    setQuestion(obj.question);
+    setAnswerChoices(answers)
   }
 
-  const parseQuestion = (q) => { 
-    var newString = q.split('\n');
-    console.log(newString)
-    return newString;
-  }
 
-  const questionCorrect = async (position, option) => {
-    var piece;
-    if (game.currentState === "X_TURN") {
-      piece = "X";
-    } else if (game.currentState === "O_TURN") {
-      piece = "O";
-    }
-    const returnResponse = await fetch(`/game/${gameId}/${piece}/${position+1}/${option}`, { method: "GET" })
-    const obj = await returnResponse.text()
-    return obj; 
-  }
-
-  
   const makeMove = (n) => {
-    var piece;
-    if (game.currentState === "X_TURN") {
-      piece = "X";
-    } else if (game.currentState === "O_TURN") {
-      piece = "O";
-    }
-
+    var piece = checkPiece(game.currentState)
     // make an API call to the server to make the move of piece at cell n
     // n +1 because Game.java lol 
     fetch(`/game/${gameId}/${piece}/${n+1}`, { method: "POST" })
@@ -65,6 +37,16 @@ function Game({ gameId }) {
         setGame(responseJson.game);
         console.log({ responseJson });
       });
+  }
+
+  const checkPiece = (currentState) => {
+    var piece; 
+    if (currentState === "X_TURN") {
+      piece = "X";
+    } else if (currentState === "O_TURN") {
+      piece = "O";
+    }
+    return piece;
   }
 
   useEffect(() => {
@@ -86,7 +68,7 @@ function Game({ gameId }) {
       makeMove={makeMove} 
       displayQuestion={displayQuestion} 
       question = {question}
-      questionCorrect = {questionCorrect} 
+      answers = {answerChoices}
       />
     </p>
   </div>);

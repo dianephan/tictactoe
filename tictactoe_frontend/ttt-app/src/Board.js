@@ -1,16 +1,16 @@
 import './Board.css';
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 function Board({
   game,
   makeMove,
   displayQuestion,
   question,
-  questionCorrect,
+  answers,
 }) {
 
   const [position, setPosition] = useState([0])
-  const [answer, setAnswer] = useState(0)
+  const [answer, setAnswer] = useState(["correct/incorrect"])
 
   const displayValues = {
     "X": "✕",
@@ -23,7 +23,7 @@ function Board({
   }
 
   const clicked = (n) => {
-    return (e) => {
+    return async (e) => {
       if (game.cells[n] === "EMPTY") {
         setAnswer(0)
         displayQuestion(n);
@@ -34,15 +34,16 @@ function Board({
 
   const answerClick = (option) => {
     return async (e) => {
+      var result = 0; 
       console.log("you clicked ", option, " for position ", position + 1)
-      const result = await questionCorrect(position, option)  // this gives us the promise
-      setAnswer(result)
-      if (result === "true") {
+      console.log("the correct answer should be ", answers[4])
+      if (option === answers[4]) {
+        result = "correct"
         makeMove(position)
-        console.log("correct")
       } else {
-        console.log("cannot make move")
+        result = "incorrect"; 
       }
+      setAnswer(result)
     }
   }
 
@@ -65,6 +66,14 @@ function Board({
       </div>
       <p>
         <div className='quiz-question'> {question}
+          <br></br>
+          {answers[0]}
+          <br></br>
+          {answers[1]}
+          <br></br>
+          {answers[2]}
+          <br></br>
+          {answers[3]}
           <br></br>
           {answer}
           <div className='answer-board'>
